@@ -250,13 +250,67 @@ public class Attack {
         int baseHit = 100;
         Side side = CombatUnit.actionAngle(caster, target);
         int hitTarget = target.EvadeRate(side, baseHit);
-        return 100 - hitTarget;
+        int value = 100 - hitTarget;
+
+        // See what arc it would take to hit the target
+        Vector3 arrowOrigin = caster.transform.position + new Vector3(0, .5f, 0);
+        Vector3 arrowTarget = target.transform.position + new Vector3(0, .5f, 0);
+        float distance = Vector3.Distance(arrowOrigin, arrowTarget);
+        int resolution = (int)Mathf.Ceil(distance * 3);
+        int arc = Statics.MinimumArc(arrowOrigin, arrowTarget, 3, resolution);
+        if (arc == -1)
+        {
+            return 0;
+        }
+        else
+        {
+            return value;
+        }
     }
 
     public static void Bow_Execute(CombatUnit caster, Tile targetTile, CombatUnit targetUnit)
     {
         Timeline t = new GameObject("Bow Timeline").AddComponent<Timeline>();
         t.AdvanceTo(.1f);
+        t.gameObject.AddComponent<FaceTile_TimelineEvent>().Init(t, 0, caster.GetComponent<Facer>(), targetTile);
+        t.gameObject.AddComponent<UnitAnimation_TimelineEvent>().Init(t, 0, "Armature|LongbowAttack", caster.GetComponentInChildren<Animator>());
+
+        // Find out what and when the arrow will hit
+        Vector3 arrowOrigin = caster.transform.position + new Vector3(0, .5f, 0);
+        Vector3 arrowTarget = targetTile.transform.position + new Vector3(0, .5f, 0);
+        float distance = Vector3.Distance(arrowOrigin, arrowTarget);
+        int resolution = (int)Mathf.Ceil(distance * 3);
+        float arc = Statics.MinimumArc(arrowOrigin, arrowTarget, 3, (int)Mathf.Ceil(distance * 3));
+
+        float arrowFlightDuration = (distance * (arc+1) * .05f);
+        Pair<CombatUnit, float> hit = Statics.ProjectileInterrupt(arrowOrigin, arrowTarget, arc, resolution);
+        if (arc == 0)
+        {
+            arc = .25f;
+        }
+        t.gameObject.AddComponent<Projectile_TimelineEvent>().Init(t, .25f, caster.transform.position + new Vector3(0, 1, 0), targetTile.transform.position + new Vector3(0, 1, 0), arrowFlightDuration, arc, hit.second);
+        t.Advance(.25f + arrowFlightDuration * hit.second);
+
+        if (hit.first != null)
+        {
+            targetUnit = hit.first;
+            bool critical = (Random.Range(1, 100) <= 5);
+            int xa = (caster.PA + caster.Speed) / 2;
+            xa = CombatUnit.Mod2XA(xa, critical, Element.None);
+            int damage = xa * caster.WP;
+            damage = CombatUnit.Mod2Damage(damage);
+            targetUnit.TakeDamage(damage);
+
+            t.gameObject.AddComponent<CameraFocus_TimelineEvent>().Init(t, 0, targetUnit.transform.position, .25f);
+            t.gameObject.AddComponent<UnitAnimation_TimelineEvent>().Init(t, 0f, "Armature|Hurt", targetUnit.GetComponentInChildren<Animator>());
+            t.gameObject.AddComponent<PlaySound_TimelineEvent>().Init(t, 0f, "slash");
+            t.gameObject.AddComponent<FlyingText_TimelineEvent>().Init(t, .25f, damage.ToString(), targetUnit);
+            t.gameObject.AddComponent<UnitAnimation_TimelineEvent>().Init(t, .5f, targetUnit.GetDefaultAnimation(), targetUnit.GetComponentInChildren<Animator>());
+            t.Advance(.5f);
+        }
+
+        t.gameObject.AddComponent<CameraFocus_TimelineEvent>().Init(t, 0, caster.transform.position, .25f);
+        t.gameObject.AddComponent<UnitAnimation_TimelineEvent>().Init(t, 0f, caster.GetDefaultAnimation(), caster.GetComponentInChildren<Animator>());
         t.gameObject.AddComponent<DestroyTimeline_TimelineEvent>().Init(t, .25f);
         t.PlayFromStart();
     }

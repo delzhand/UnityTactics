@@ -88,6 +88,7 @@ ModelImporter:
     7400012: Armature|SwordAttackBlocked
     7400014: Armature|KO
     7400016: Armature|Critical
+    7400018: Armature|LongbowAttack
     9500000: //RootNode
     13700000: Cube
     13700002: Cube.002
@@ -728,6 +729,82 @@ ModelImporter:
       takeName: Armature|Critical
       firstFrame: 0
       lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Root_end
+        weight: 1
+      - path: Armature/Spine 1
+        weight: 1
+      - path: Armature/Spine 1/Chest
+        weight: 1
+      - path: Armature/Spine 1/Chest/Head
+        weight: 1
+      - path: Armature/Spine 1/Chest/Head/Head_end
+        weight: 1
+      - path: Armature/Spine 1/Chest/Shoulder L
+        weight: 1
+      - path: Armature/Spine 1/Chest/Shoulder L/Forearm L
+        weight: 1
+      - path: Armature/Spine 1/Chest/Shoulder L/Forearm L/Held L
+        weight: 1
+      - path: Armature/Spine 1/Chest/Shoulder L/Forearm L/Held L/Held L_end
+        weight: 1
+      - path: Armature/Spine 1/Chest/Shoulder R
+        weight: 1
+      - path: Armature/Spine 1/Chest/Shoulder R/Forearm R
+        weight: 1
+      - path: Armature/Spine 1/Chest/Shoulder R/Forearm R/Held R
+        weight: 1
+      - path: Armature/Spine 1/Chest/Shoulder R/Forearm R/Held R/Held R_end
+        weight: 1
+      - path: Armature/Spine 2
+        weight: 1
+      - path: Armature/Spine 2/Top Leg L
+        weight: 1
+      - path: Armature/Spine 2/Top Leg L/Low Leg L
+        weight: 1
+      - path: Armature/Spine 2/Top Leg L/Low Leg L/Low Leg L_end
+        weight: 1
+      - path: Armature/Spine 2/Top Leg R
+        weight: 1
+      - path: Armature/Spine 2/Top Leg R/Low Leg R
+        weight: 1
+      - path: Armature/Spine 2/Top Leg R/Low Leg R/Low Leg R_end
+        weight: 1
+      - path: Cube
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|LongbowAttack
+      takeName: Armature|LongbowAttack
+      firstFrame: 0
+      lastFrame: 13
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

@@ -6,10 +6,23 @@ ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Camera
+    100004: Lamp
+    100006: Matrix
+    100008: Matrix_1
     400000: //RootNode
+    400002: Camera
+    400004: Lamp
+    400006: Matrix
+    400008: Matrix_1
     2300000: //RootNode
+    2300002: Matrix
+    2300004: Matrix_1
     3300000: //RootNode
+    3300002: Matrix
+    3300004: Matrix_1
     4300000: Matrix
+    4300002: Matrix_1
   materials:
     importMaterials: 1
     materialName: 0

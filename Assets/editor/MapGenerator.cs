@@ -19,6 +19,7 @@ public class MapGenerator : EditorWindow
         height = EditorGUILayout.IntSlider("Height", height, 8, 24);
         width = EditorGUILayout.IntSlider("Width", width, 8, 24);
 
+
         if (GUILayout.Button("Build " + width + "x" + height + " Map"))
         {
             GameObject parent = new GameObject("Tiles");
@@ -37,6 +38,26 @@ public class MapGenerator : EditorWindow
                     tileObject.name = "[" + i + "," + j + "]";
                     tileObject.transform.parent = parent.transform;
                 }
+            }
+        }
+
+        if (GUILayout.Button("Initialize Collision"))
+        {
+            GameObject parent = GameObject.Find("Tiles");
+            foreach(Transform t in parent.transform)
+            {
+                BoxCollider b = t.GetComponent<BoxCollider>();
+                if (b == null)
+                {
+                    b = t.gameObject.AddComponent<BoxCollider>();
+                }
+
+                Tile tile = t.GetComponent<Tile>();
+
+                float height = (tile.Height + tile.Depth + (tile.Slope/2f)) * parent.GetComponent<TileManager>().TileHeightScale;
+
+                b.size = new Vector3(1, height, 1);
+                b.center = new Vector3(0, -height / 2f, 0);
             }
         }
 
