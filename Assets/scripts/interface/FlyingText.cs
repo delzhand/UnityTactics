@@ -19,7 +19,7 @@ public class FlyingText : MonoBehaviour {
     {
         if (timer >= Delay && timer <= Delay + Duration)
         {
-            GUIStyle g = Engine.GuiStyleLabel;
+            GUIStyle g = new GUIStyle(Engine.GuiStyleLabel);
             g.fontSize = 20;
             g.alignment = TextAnchor.UpperCenter;
             Vector2 v = UpdatePosition();
