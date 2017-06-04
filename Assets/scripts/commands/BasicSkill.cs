@@ -26,9 +26,9 @@ public class BasicSkill : MonoBehaviour {
 
     private static int ThrowStone_PredictedDamage(CombatUnit caster, CombatUnit target)
     {
-        int xa = CombatUnit.Mod2XA(caster.PA, false, Element.None);
+        int xa = Statics.Mod2XA(caster.PA, false, Element.None, ZodiacCompatibility.Compare(caster, target));
         int damage = xa * Random.Range(1, 2);
-        damage = CombatUnit.Mod2Damage(damage);
+        damage = Statics.Mod2Damage(damage);
         return damage;
     }
 
@@ -60,9 +60,9 @@ public class BasicSkill : MonoBehaviour {
         {
             targetUnit = tO.GetComponent<CombatUnit>();
 
-            int xa = CombatUnit.Mod2XA(caster.PA, false, Element.None);
+            int xa = Statics.Mod2XA(caster.PA, false, Element.None, ZodiacCompatibility.Compare(caster, targetUnit));
             int damage = xa * Random.Range(1,2);
-            damage = CombatUnit.Mod2Damage(damage);
+            damage = Statics.Mod2Damage(damage);
 
 
             targetUnit.TakeDamage(damage);

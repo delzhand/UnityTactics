@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class Statics : MonoBehaviour
@@ -148,4 +150,61 @@ public class Statics : MonoBehaviour
         return new Pair<CombatUnit, float>(null, 1);
     }
 
+    public static int Mod2XA(int xa, bool critical, Element element, Compatibility compat)
+    {
+        // Critical
+        if (critical)
+        {
+            xa += UnityEngine.Random.Range(1, (xa - 1));
+        }
+
+        // Caster Elemental Strengthen
+
+        // Caster Attack Up support
+
+        // Caster Martial Arts
+
+        // Caster Berserk
+
+        // Target Defense Up
+
+        // Target Protect
+
+        // Target Charging
+
+        // Target Sleeping
+
+        // Target Chicken/Frog
+
+        // Caster+Target Zodiac
+        if (compat == Compatibility.Best)
+        {
+            xa += xa / 2;
+        }
+        else if (compat == Compatibility.Good)
+        {
+            xa += xa / 4;
+        }
+        else if (compat == Compatibility.Bad)
+        {
+            xa -= xa / 4;
+        }
+        else if (compat == Compatibility.Worst)
+        {
+            xa -= xa / 2;
+        }
+
+        return xa;
+    }
+
+    public static int Mod2Damage(int damage)
+    {
+        // Target Elemental Weak
+
+        // Target Elemental Halved
+
+        // Target Elemental Absorb
+
+        return damage;
+    }
 }

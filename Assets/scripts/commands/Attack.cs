@@ -69,9 +69,9 @@ public class Attack {
 
     private static int Strike_PredictedDamage(CombatUnit caster, CombatUnit target)
     {
-        int xa = CombatUnit.Mod2XA(caster.PA, false, Element.None);
+        int xa = Statics.Mod2XA(caster.PA, false, Element.None, ZodiacCompatibility.Compare(caster, target));
         int damage = xa * caster.WP;
-        damage = CombatUnit.Mod2Damage(damage);
+        damage = Statics.Mod2Damage(damage);
         return damage;
     }
 
@@ -100,9 +100,9 @@ public class Attack {
 
             targetUnit = tO.GetComponent<CombatUnit>();
             bool critical = (Random.Range(1, 100) <= 5);
-            int xa = CombatUnit.Mod2XA(caster.PA, critical, Element.None);
+            int xa = Statics.Mod2XA(caster.PA, critical, Element.None, ZodiacCompatibility.Compare(caster, targetUnit));
             int damage = xa * caster.WP;
-            damage = CombatUnit.Mod2Damage(damage);
+            damage = Statics.Mod2Damage(damage);
 
             int hit = Random.Range(1, 100);
             int baseHit = 100;
@@ -239,9 +239,9 @@ public class Attack {
     private static int Bow_PredictedDamage(CombatUnit caster, CombatUnit target)
     {
         int xa = (caster.PA + caster.Speed) / 2;
-        xa = CombatUnit.Mod2XA(xa, false, Element.None);
+        xa = Statics.Mod2XA(xa, false, Element.None, ZodiacCompatibility.Compare(caster, target));
         int damage = xa * caster.WP;
-        damage = CombatUnit.Mod2Damage(damage);
+        damage = Statics.Mod2Damage(damage);
         return damage;
     }
 
@@ -296,9 +296,9 @@ public class Attack {
             targetUnit = hit.first;
             bool critical = (Random.Range(1, 100) <= 5);
             int xa = (caster.PA + caster.Speed) / 2;
-            xa = CombatUnit.Mod2XA(xa, critical, Element.None);
+            xa = Statics.Mod2XA(xa, critical, Element.None, ZodiacCompatibility.Compare(caster, targetUnit));
             int damage = xa * caster.WP;
-            damage = CombatUnit.Mod2Damage(damage);
+            damage = Statics.Mod2Damage(damage);
             targetUnit.TakeDamage(damage);
 
             t.gameObject.AddComponent<CameraFocus_TimelineEvent>().Init(t, 0, targetUnit.transform.position, .25f);

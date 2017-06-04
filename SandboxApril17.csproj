@@ -157,6 +157,7 @@
     <Compile Include="Assets\scripts\unit\Shimmy.cs" />
     <Compile Include="Assets\scripts\unit\TileOccupier.cs" />
     <Compile Include="Assets\scripts\unit\UnitAnimation.cs" />
+    <Compile Include="Assets\scripts\unit\Zodiac.cs" />
     <Compile Include="Assets\tmp.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

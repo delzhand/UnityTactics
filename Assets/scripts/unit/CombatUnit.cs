@@ -4,20 +4,11 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-public enum Zodiac
+public enum Gender
 {
-    Aquarius,
-    Pisces,
-    Aries,
-    Taurus,
-    Gemini,
-    Cancer,
-    Leo,
-    Virgo,
-    Libra,
-    Scorpio,
-    Sagittarius,
-    Capricorn
+    Male,
+    Female,
+    Monster
 }
 
 public class CombatUnit : MonoBehaviour {
@@ -28,6 +19,7 @@ public class CombatUnit : MonoBehaviour {
     public int Speed;
     public int CT;
     public Zodiac Zodiac;
+    public Gender Gender;
     public string Class;
     public int Brave;
     public int Faith;
@@ -211,48 +203,6 @@ public class CombatUnit : MonoBehaviour {
                 return 0;
         }
         throw new Exception("Side not handled.");
-    }
-
-    public static int Mod2XA(int xa, bool critical, Element element)
-    {
-        // Critical
-        if (critical)
-        {
-            xa += UnityEngine.Random.Range(1, (xa - 1));
-        }
-
-        // Caster Elemental Strengthen
-
-        // Caster Attack Up support
-
-        // Caster Martial Arts
-
-        // Caster Berserk
-
-        // Target Defense Up
-
-        // Target Protect
-
-        // Target Charging
-
-        // Target Sleeping
-
-        // Target Chicken/Frog
-
-        // Caster+Target Zodiac
-
-        return xa;
-    }
-
-    public static int Mod2Damage(int damage)
-    {
-        // Target Elemental Weak
-
-        // Target Elemental Halved
-
-        // Target Elemental Absorb
-
-        return damage;
     }
 
     public static Side actionAngle(CombatUnit caster, CombatUnit target)
