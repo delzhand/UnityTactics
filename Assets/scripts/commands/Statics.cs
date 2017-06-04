@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 using UnityEngine;
 
@@ -150,7 +151,7 @@ public class Statics : MonoBehaviour
         return new Pair<CombatUnit, float>(null, 1);
     }
 
-    public static int Mod2XA(int xa, bool critical, Element element, CombatUnit caster, CombatUnit target)
+    public static int Mod2(int xa, bool critical, Element element, CombatUnit caster, CombatUnit target, MethodInfo formula)
     {
         // Critical
         if (critical)
@@ -179,11 +180,8 @@ public class Statics : MonoBehaviour
         // Caster+Target Zodiac
         xa = ZodiacCompatibility.Modify(xa, caster, target);
 
-        return xa;
-    }
+        int damage = (int)formula.Invoke(null, new object[] { xa, caster });
 
-    public static int Mod2Damage(int damage)
-    {
         // Target Elemental Weak
 
         // Target Elemental Halved

@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 public class DarkSword : MonoBehaviour {
@@ -27,10 +29,14 @@ public class DarkSword : MonoBehaviour {
 
     private static int NightSword_PredictedDamage(CombatUnit caster, CombatUnit target)
     {
-        int xa = Statics.Mod2XA(caster.PA, false, Element.None, caster, target);
-        int damage = xa * caster.WP;
-        damage = Statics.Mod2Damage(damage);
+        MethodInfo formula = Type.GetType("DarkSword").GetMethod("NightSword_Formula");
+        int damage = Statics.Mod2(caster.PA, false, Element.None, caster, target, formula);
         return damage;
+    }
+
+    public static int NightSword_Formula(int xa, CombatUnit caster)
+    {
+        return xa * caster.WP;
     }
 
     public static void NightSword_Execute(CombatUnit caster, Tile targetTile, CombatUnit targetUnit)
@@ -51,10 +57,9 @@ public class DarkSword : MonoBehaviour {
         if (tO != null)
         {
             targetUnit = tO.GetComponent<CombatUnit>();
-            bool critical = (Random.Range(1, 100) <= 5);
-            int xa = Statics.Mod2XA(caster.PA, critical, Element.None, caster, targetUnit);
-            int damage = xa * caster.WP;
-            damage = Statics.Mod2Damage(damage);
+            bool critical = (UnityEngine.Random.Range(1, 100) <= 5);
+            MethodInfo formula = Type.GetType("DarkSword").GetMethod("NightSword_Formula");
+            int damage = Statics.Mod2(caster.PA, critical, Element.None, caster, targetUnit, formula);
 
             targetUnit.TakeDamage(damage);
 

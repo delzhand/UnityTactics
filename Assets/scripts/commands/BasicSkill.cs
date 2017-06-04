@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 public class BasicSkill : MonoBehaviour {
@@ -26,10 +28,14 @@ public class BasicSkill : MonoBehaviour {
 
     private static int ThrowStone_PredictedDamage(CombatUnit caster, CombatUnit target)
     {
-        int xa = Statics.Mod2XA(caster.PA, false, Element.None, caster, target);
-        int damage = xa * Random.Range(1, 2);
-        damage = Statics.Mod2Damage(damage);
+        MethodInfo formula = Type.GetType("BasicSkill").GetMethod("ThrowStone_Formula");
+        int damage = Statics.Mod2(caster.PA, false, Element.None, caster, target, formula);
         return damage;
+    }
+
+    public static int ThrowStone_Formula(int xa, CombatUnit caster)
+    {
+        return xa * UnityEngine.Random.Range(1, 2);
     }
 
     private static int ThrowStone_PredictedSuccess(CombatUnit caster, CombatUnit target)
@@ -60,10 +66,8 @@ public class BasicSkill : MonoBehaviour {
         {
             targetUnit = tO.GetComponent<CombatUnit>();
 
-            int xa = Statics.Mod2XA(caster.PA, false, Element.None, caster, targetUnit);
-            int damage = xa * Random.Range(1,2);
-            damage = Statics.Mod2Damage(damage);
-
+            MethodInfo formula = Type.GetType("BasicSkill").GetMethod("ThrowStone_Formula");
+            int damage = Statics.Mod2(caster.PA, false, Element.None, caster, targetUnit, formula);
 
             targetUnit.TakeDamage(damage);
 

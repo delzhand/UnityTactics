@@ -70,7 +70,6 @@ public class BlackMagic : MonoBehaviour {
             if (tO != null)
             {
                 targetUnit = tO.GetComponent<CombatUnit>();
-                bool critical = (Random.Range(1, 100) <= 5);
                 int damage = Statics.Mod5(Element.Fire, 14, caster, targetUnit);
 
                 targetUnit.TakeDamage(damage);

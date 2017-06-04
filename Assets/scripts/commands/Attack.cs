@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 public class Attack {
@@ -69,10 +71,14 @@ public class Attack {
 
     private static int Strike_PredictedDamage(CombatUnit caster, CombatUnit target)
     {
-        int xa = Statics.Mod2XA(caster.PA, false, Element.None, caster, target);
-        int damage = xa * caster.WP;
-        damage = Statics.Mod2Damage(damage);
+        MethodInfo formula = Type.GetType("Attack").GetMethod("Strike_Formula");
+        int damage = Statics.Mod2(caster.PA, false, Element.None, caster, target, formula);
         return damage;
+    }
+
+    public static int Strike_Formula(int xa, CombatUnit caster)
+    {
+        return xa * caster.WP;
     }
 
     private static int Strike_PredictedSuccess(CombatUnit caster, CombatUnit target)
@@ -99,12 +105,11 @@ public class Attack {
             // TODO - Check if target is already dead
 
             targetUnit = tO.GetComponent<CombatUnit>();
-            bool critical = (Random.Range(1, 100) <= 5);
-            int xa = Statics.Mod2XA(caster.PA, critical, Element.None, caster, targetUnit);
-            int damage = xa * caster.WP;
-            damage = Statics.Mod2Damage(damage);
+            bool critical = (UnityEngine.Random.Range(1, 100) <= 5);
+            MethodInfo formula = Type.GetType("Attack").GetMethod("Strike_Formula");
+            int damage = Statics.Mod2(caster.PA, critical, Element.None, caster, targetUnit, formula);
 
-            int hit = Random.Range(1, 100);
+            int hit = UnityEngine.Random.Range(1, 100);
             int baseHit = 100;
             Side side = CombatUnit.actionAngle(caster, targetUnit);
             int hitTarget = targetUnit.EvadeRate(side, baseHit);
@@ -121,9 +126,6 @@ public class Attack {
                 t.gameObject.AddComponent<UnitAnimation_TimelineEvent>().Init(t, .55f, caster.GetDefaultAnimation(), caster.GetComponentInChildren<Animator>());
                 t.gameObject.AddComponent<UnitAnimation_TimelineEvent>().Init(t, .55f, targetUnit.GetDefaultAnimation(), targetUnit.GetComponentInChildren<Animator>());
                 t.Advance(.55f);
-
-
-                // TODO - check if kill
             }
             else
             {
@@ -239,10 +241,14 @@ public class Attack {
     private static int Bow_PredictedDamage(CombatUnit caster, CombatUnit target)
     {
         int xa = (caster.PA + caster.Speed) / 2;
-        xa = Statics.Mod2XA(xa, false, Element.None, caster, target);
-        int damage = xa * caster.WP;
-        damage = Statics.Mod2Damage(damage);
+        MethodInfo formula = Type.GetType("Attack").GetMethod("Bow_Formula");
+        int damage = Statics.Mod2(xa, false, Element.None, caster, target, formula);
         return damage;
+    }
+
+    public static int Bow_Formula(int xa, CombatUnit caster)
+    {
+        return xa * caster.WP;
     }
 
     private static int Bow_PredictedSuccess(CombatUnit caster, CombatUnit target)
@@ -294,11 +300,10 @@ public class Attack {
         if (hit.first != null)
         {
             targetUnit = hit.first;
-            bool critical = (Random.Range(1, 100) <= 5);
+            bool critical = (UnityEngine.Random.Range(1, 100) <= 5);
             int xa = (caster.PA + caster.Speed) / 2;
-            xa = Statics.Mod2XA(xa, critical, Element.None, caster, targetUnit);
-            int damage = xa * caster.WP;
-            damage = Statics.Mod2Damage(damage);
+            MethodInfo formula = Type.GetType("Attack").GetMethod("Bow_Formula");
+            int damage = Statics.Mod2(xa, critical, Element.None, caster, targetUnit, formula);
             targetUnit.TakeDamage(damage);
 
             t.gameObject.AddComponent<CameraFocus_TimelineEvent>().Init(t, 0, targetUnit.transform.position, .25f);
