@@ -28,7 +28,7 @@ public class HolySword : MonoBehaviour
 
     private static int StasisSword_PredictedDamage(CombatUnit caster, CombatUnit target)
     {
-        int xa = Statics.Mod2XA(caster.PA, false, Element.None, ZodiacCompatibility.Compare(caster, target));
+        int xa = Statics.Mod2XA(caster.PA, false, Element.None, caster, target);
         int damage = xa * (caster.WP + 2);
         damage = Statics.Mod2Damage(damage);
         return damage;
@@ -56,7 +56,7 @@ public class HolySword : MonoBehaviour
             {
                 targetUnit = tO.GetComponent<CombatUnit>();
                 bool critical = (Random.Range(1, 100) <= 5);
-                int xa = Statics.Mod2XA(caster.PA, critical, Element.None, ZodiacCompatibility.Compare(caster, targetUnit));
+                int xa = Statics.Mod2XA(caster.PA, critical, Element.None, caster, targetUnit);
                 int damage = xa * (caster.WP + 2);
                 damage = Statics.Mod2Damage(damage);
 

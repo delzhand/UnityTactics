@@ -30,6 +30,28 @@ public enum Compatibility
 
 public class ZodiacCompatibility
 {
+    public static int Modify(int xa, CombatUnit a, CombatUnit b)
+    {
+        Compatibility compat = ZodiacCompatibility.Compare(a, b);
+        if (compat == Compatibility.Best)
+        {
+            xa += xa / 2;
+        }
+        else if (compat == Compatibility.Good)
+        {
+            xa += xa / 4;
+        }
+        else if (compat == Compatibility.Bad)
+        {
+            xa -= xa / 4;
+        }
+        else if (compat == Compatibility.Worst)
+        {
+            xa -= xa / 2;
+        }
+        return xa;
+    }
+
     public static Compatibility Compare(CombatUnit a, CombatUnit b)
     {
         return Compare(a.Zodiac, b.Zodiac, a.Gender, b.Gender);

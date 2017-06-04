@@ -30,6 +30,7 @@ public class CombatUnit : MonoBehaviour {
     public int MaxHP;
     public int MaxMP;
     public int PA;
+    public int MA;
     public int WP;
     public int ClassEvade;
     public int ShieldEvade;

@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="Assets\scripts\commands\Attack.cs" />
     <Compile Include="Assets\scripts\commands\BasicSkill.cs" />
+    <Compile Include="Assets\scripts\commands\BlackMagic.cs" />
     <Compile Include="Assets\scripts\commands\Charge.cs" />
     <Compile Include="Assets\scripts\commands\DarkSword.cs" />
     <Compile Include="Assets\scripts\commands\HolySword.cs" />

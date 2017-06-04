@@ -69,7 +69,7 @@ public class Attack {
 
     private static int Strike_PredictedDamage(CombatUnit caster, CombatUnit target)
     {
-        int xa = Statics.Mod2XA(caster.PA, false, Element.None, ZodiacCompatibility.Compare(caster, target));
+        int xa = Statics.Mod2XA(caster.PA, false, Element.None, caster, target);
         int damage = xa * caster.WP;
         damage = Statics.Mod2Damage(damage);
         return damage;
@@ -100,7 +100,7 @@ public class Attack {
 
             targetUnit = tO.GetComponent<CombatUnit>();
             bool critical = (Random.Range(1, 100) <= 5);
-            int xa = Statics.Mod2XA(caster.PA, critical, Element.None, ZodiacCompatibility.Compare(caster, targetUnit));
+            int xa = Statics.Mod2XA(caster.PA, critical, Element.None, caster, targetUnit);
             int damage = xa * caster.WP;
             damage = Statics.Mod2Damage(damage);
 
@@ -239,7 +239,7 @@ public class Attack {
     private static int Bow_PredictedDamage(CombatUnit caster, CombatUnit target)
     {
         int xa = (caster.PA + caster.Speed) / 2;
-        xa = Statics.Mod2XA(xa, false, Element.None, ZodiacCompatibility.Compare(caster, target));
+        xa = Statics.Mod2XA(xa, false, Element.None, caster, target);
         int damage = xa * caster.WP;
         damage = Statics.Mod2Damage(damage);
         return damage;
@@ -296,7 +296,7 @@ public class Attack {
             targetUnit = hit.first;
             bool critical = (Random.Range(1, 100) <= 5);
             int xa = (caster.PA + caster.Speed) / 2;
-            xa = Statics.Mod2XA(xa, critical, Element.None, ZodiacCompatibility.Compare(caster, targetUnit));
+            xa = Statics.Mod2XA(xa, critical, Element.None, caster, targetUnit);
             int damage = xa * caster.WP;
             damage = Statics.Mod2Damage(damage);
             targetUnit.TakeDamage(damage);

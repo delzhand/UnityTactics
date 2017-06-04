@@ -150,7 +150,7 @@ public class Statics : MonoBehaviour
         return new Pair<CombatUnit, float>(null, 1);
     }
 
-    public static int Mod2XA(int xa, bool critical, Element element, Compatibility compat)
+    public static int Mod2XA(int xa, bool critical, Element element, CombatUnit caster, CombatUnit target)
     {
         // Critical
         if (critical)
@@ -177,22 +177,7 @@ public class Statics : MonoBehaviour
         // Target Chicken/Frog
 
         // Caster+Target Zodiac
-        if (compat == Compatibility.Best)
-        {
-            xa += xa / 2;
-        }
-        else if (compat == Compatibility.Good)
-        {
-            xa += xa / 4;
-        }
-        else if (compat == Compatibility.Bad)
-        {
-            xa -= xa / 4;
-        }
-        else if (compat == Compatibility.Worst)
-        {
-            xa -= xa / 2;
-        }
+        xa = ZodiacCompatibility.Modify(xa, caster, target);
 
         return xa;
     }
@@ -204,6 +189,38 @@ public class Statics : MonoBehaviour
         // Target Elemental Halved
 
         // Target Elemental Absorb
+
+        return damage;
+    }
+
+    public static int Mod5(Element element, int spellPower, CombatUnit caster, CombatUnit target)
+    {
+        int damage = 0;
+        float frac = 1;
+        int xa = caster.MA;
+
+        // Caster Elemental Strengthen
+
+        // Caster Magic Up
+
+        // Target Magic Defend Up
+
+        // Target Shell
+
+        // Caster+Target Zodiac
+        xa = ZodiacCompatibility.Modify(xa, caster, target);
+
+        // Caster/Target Faith status
+
+        // Weather Elemental effect
+
+        // Target Elemental Weakness
+
+        // Target Elemental Half
+
+        // Target Elemental Absorb
+
+        damage = (int)(caster.Faith * target.Faith * spellPower * xa * frac / 10000f);
 
         return damage;
     }
