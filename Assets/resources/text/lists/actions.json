@@ -1,0 +1,46 @@
+{
+  "Items": [
+    {
+      "Id": "Fire",
+      "CommandSet": "BlackMagic",
+      "PSXName": "Fire",
+      "PSPName": "Fire",
+      "RangeH": "4",
+      "RangeV": "*",
+      "CTR": "4",
+      "EffectH": "2",
+      "EffectV": "1",
+      "Mod": "5",
+      "Element": "Fire",
+      "Mp": "6"
+    },
+    {
+      "Id": "Fire 2",
+      "CommandSet": "BlackMagic",
+      "PSXName": "Fire 2",
+      "PSPName": "Fira",
+      "RangeH": "4",
+      "RangeV": "*",
+      "CTR": "5",
+      "EffectH": "2",
+      "EffectV": "2",
+      "Mod": "5",
+      "Element": "Fire",
+      "Mp": "12"
+    },
+    {
+      "Id": "HeadBreak",
+      "CommandSet": "BattleSkill",
+      "PSXName": "Head Break",
+      "PSPName": "Rend Helm",
+      "RangeH": "Weapon",
+      "RangeV": "Weapon",
+      "CTR": "0",
+      "EffectH": "1",
+      "EffectV": "1",
+      "Mod": "3",
+      "Element": "Weapon",
+      "Mp": "0"
+    }
+  ]
+}
