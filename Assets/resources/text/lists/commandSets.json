@@ -1,0 +1,34 @@
+{
+  "Items": [
+    {
+      "Id": "BasicSkill",
+      "PSXName": "Basic Skill",
+      "PSPName": "Fundaments"
+    },
+    {
+      "Id": "Charge",
+      "PSXName": "Charge",
+      "PSPName": "Aim"
+    },
+    {
+      "Id": "BattleSkill",
+      "PSXName": "Battle Skill",
+      "PSPName": "Arts of War"
+    },
+    {
+      "Id": "BlackMagic",
+      "PSXName": "Black Magic",
+      "PSPName": "Black Magicks"
+    },
+    {
+      "Id": "HolySword",
+      "PSXName": "Holy Sword",
+      "PSPName": "Holy Sword"
+    },
+    {
+      "Id": "DarkSword",
+      "PSXName": "Dark Sword",
+      "PSPName": "Fell Sword"
+    }
+  ]
+}

@@ -25,28 +25,29 @@ public class Act_MenuOption : MenuOption {
         m.Attach = Menu.Attach;
         Engine.InputManager.Attach = m;
 
-        AvailableAction[] aas = Menu.Attach.GetComponents<AvailableAction>();
-        foreach(AvailableAction a in aas)
+        // Attack
+
+
+        // Command Sets
+        List<string> commandSets = new List<string>();
+        string[] actions = Menu.Attach.GetComponent<AvailableActions>().Actions;
+        foreach(string s in actions)
         {
-            if (a.Skillset == "Attack")
+            if (!Engine.CombatManager.ActionTable.ContainsKey(s))
             {
-                Command_MenuOption cmo = m.gameObject.AddComponent<Command_MenuOption>();
-                Type t = Type.GetType(a.Skillset);
-                MethodInfo mi = t.GetMethod("GetName");
-                String s = (string)mi.Invoke(null, null);
-                cmo.Skillset = a.Skillset;
-                cmo.Action = a.Action;
-                m.AddMenuOption(s, cmo);
+                throw new Exception(s + " not in Action Table");
             }
-            else
+            Action a = Engine.CombatManager.ActionTable[s];
+            if (!commandSets.Contains(a.CommandSet))
             {
-                Skillset_MenuOption smo = m.gameObject.AddComponent<Skillset_MenuOption>();
-                smo.Skillset = a.Skillset;
-                Type t = Type.GetType(a.Skillset);
-                MethodInfo mi = t.GetMethod("GetName");
-                String s = (string)mi.Invoke(null, null);
-                m.AddMenuOption(s, smo);
+                commandSets.Add(a.CommandSet);
             }
+        }
+        foreach(string s in commandSets)
+        {
+            CommandSet_MenuOption cs_mo = m.gameObject.AddComponent<CommandSet_MenuOption>();
+            cs_mo.CommandSet = s;
+            m.AddMenuOption(Engine.CombatManager.CommandSetTable[s].GetName(), cs_mo);
         }
     }
 

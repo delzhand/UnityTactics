@@ -84,6 +84,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\scripts\actions\Action.cs" />
+    <Compile Include="Assets\scripts\actions\CommandSet.cs" />
     <Compile Include="Assets\scripts\commands\Attack.cs" />
     <Compile Include="Assets\scripts\commands\BasicSkill.cs" />
     <Compile Include="Assets\scripts\commands\BlackMagic.cs" />
@@ -109,12 +111,13 @@
     <Compile Include="Assets\scripts\interface\UnitPanel.cs" />
     <Compile Include="Assets\scripts\menu options\Act_MenuOption.cs" />
     <Compile Include="Assets\scripts\menu options\Attack_MenuOption.cs" />
+    <Compile Include="Assets\scripts\menu options\CommandSet_MenuOption.cs" />
     <Compile Include="Assets\scripts\menu options\Command_MenuOption.cs" />
     <Compile Include="Assets\scripts\menu options\Execute_MenuOption.cs" />
     <Compile Include="Assets\scripts\menu options\Move_MenuOption.cs" />
-    <Compile Include="Assets\scripts\menu options\Skillset_MenuOption.cs" />
     <Compile Include="Assets\scripts\menu options\Wait_MenuOption.cs" />
     <Compile Include="Assets\scripts\misc\Bounce.cs" />
+    <Compile Include="Assets\scripts\misc\JsonHelper.cs" />
     <Compile Include="Assets\scripts\misc\NightSword.cs" />
     <Compile Include="Assets\scripts\misc\ParabolicPath.cs" />
     <Compile Include="Assets\scripts\misc\ParticleSystemAutoDestroy.cs" />
@@ -148,6 +151,7 @@
     <Compile Include="Assets\scripts\timeline\UnitAnimation_TimelineEvent.cs" />
     <Compile Include="Assets\scripts\unit\ActiveTurn.cs" />
     <Compile Include="Assets\scripts\unit\AvailableAction.cs" />
+    <Compile Include="Assets\scripts\unit\AvailableActions.cs" />
     <Compile Include="Assets\scripts\unit\CombatUnit.cs" />
     <Compile Include="Assets\scripts\unit\Dash.cs" />
     <Compile Include="Assets\scripts\unit\Facer.cs" />
