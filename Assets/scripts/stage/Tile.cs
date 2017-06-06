@@ -114,12 +114,17 @@ public class Tile : MonoBehaviour {
 
     public string GetDisplayedHeight()
     {
-        String s = (Height + Depth + Slope / 2f) + "h";
+        String s = GetEffectiveHeight() + "h";
         if (Depth != 0)
         {
             s += "\ndepth " + Depth;
         }
         return s;
+    }
+
+    public float GetEffectiveHeight()
+    {
+        return Height + Depth + Slope / 2f;
     }
 
     public void SetPosition()

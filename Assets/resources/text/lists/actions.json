@@ -5,39 +5,39 @@
       "CommandSet": "BasicSkill",
       "PSXName": "Accumulate",
       "PSPName": "Focus",
-      "RangeH": "Auto"
+      "SelectableRange": "Auto"
     },
     {
       "Id": "Stone",
       "CommandSet": "BasicSkill",
       "PSXName": "Throw Stone",
       "PSPName": "Stone",
-      "RangeH": "4",
-      "CasterImmune": "true"
+      "RangeH": 4,
+      "CasterImmune": true
     },
     {
       "Id": "Fire",
       "CommandSet": "BlackMagic",
       "PSXName": "Fire",
       "PSPName": "Fire",
-      "RangeH": "4",
-      "CTR": "4",
-      "EffectH": "2",
-      "EffectV": "1",
-      "Mod": "5",
+      "RangeH": 4,
+      "CTR": 4,
+      "EffectH": 2,
+      "EffectV": 1,
+      "Mod": 5,
       "Element": "Fire",
-      "Mp": "6"
+      "Mp": 6
     },
     {
       "Id": "Fire 2",
       "CommandSet": "BlackMagic",
       "PSXName": "Fire 2",
       "PSPName": "Fira",
-      "RangeH": "4",
-      "CTR": "5",
-      "EffectH": "2",
-      "EffectV": "2",
-      "Mod": "5",
+      "RangeH": 4,
+      "CTR": 5,
+      "EffectH": 2,
+      "EffectV": 2,
+      "Mod": 5,
       "Element": "Fire",
       "Mp": "12"
     },
@@ -46,32 +46,31 @@
       "CommandSet": "BattleSkill",
       "PSXName": "Head Break",
       "PSPName": "Rend Helm",
-      "RangeH": "Weapon",
-      "RangeV": "Weapon",
-      "Mod": "3",
+      "SelectableRange": "Weapon",
+      "Mod": 3,
       "Element": "Weapon",
-      "Evadeable": "true"
+      "Evadeable": true
     },
     {
       "Id": "NightSword",
       "CommandSet": "DarkSword",
       "PSXName": "Night Sword",
       "PSPName": "Shadowblade",
-      "RangeH": "3",
-      "Mod": "2",
+      "RangeH": 3,
+      "Mod": 2,
       "Element": "Weapon",
-      "CasterImmune": "true"
+      "CasterImmune": true
     },
     {
       "Id": "StasisSword",
       "CommandSet": "HolySword",
       "PSXName": "Stasis Sword",
       "PSPName": "Judgment Blade",
-      "RangeH": "2",
-      "CasterImmune": "true",
-      "Mod": "2",
+      "RangeH": 2,
+      "CasterImmune": true,
+      "Mod": 2,
       "Element": "Weapon",
-      "EffectH": "2",
+      "EffectH": 2,
       "EffectV": "0"
     },
     {
@@ -79,26 +78,24 @@
       "CommandSet": "Charge",
       "PSXName": "Charge +1",
       "PSPName": "Aim +1",
-      "RangeH": "Weapon",
-      "RangeV": "Weapon",
-      "CTR": "4",
-      "CasterImmune": "true",
-      "Mod": "2",
+      "SelectableRange": "Weapon",
+      "CTR": 4,
+      "CasterImmune": true,
+      "Mod": 2,
       "Element": "Weapon",
-      "Evadeable": "true"
+      "Evadeable": true
     },
     {
       "Id": "Charge2",
       "CommandSet": "Charge",
       "PSXName": "Charge +2",
       "PSPName": "Aim +2",
-      "RangeH": "Weapon",
-      "RangeV": "Weapon",
-      "CTR": "5",
-      "CasterImmune": "true",
-      "Mod": "2",
+      "SelectableRange": "Weapon",
+      "CTR": 5,
+      "CasterImmune": true,
+      "Mod": 2,
       "Element": "Weapon",
-      "Evadeable": "true"
+      "Evadeable": true
     }
   ]
 }

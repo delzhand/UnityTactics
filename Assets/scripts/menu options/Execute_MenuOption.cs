@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Execute_MenuOption : MenuOption {
 
-    public Command_MenuOption Command;
+    public Action_MenuOption Command;
 
     private void Start()
     {

@@ -24,20 +24,13 @@ public class CommandSet_MenuOption : MenuOption {
         m.Top = 30;
         m.Left = 230;
 
-        AvailableAction[] aas = Menu.Attach.GetComponents<AvailableAction>();
-        foreach (AvailableAction a in aas)
+        string[] actions = Menu.Attach.GetComponent<AvailableActions>().Actions;
+        foreach (string s in actions)
         {
-            if (a.Skillset == CommandSet)
-            {
-                Command_MenuOption cmo = m.gameObject.AddComponent<Command_MenuOption>();
-                Type t = Type.GetType(a.Skillset);
-                MethodInfo mi = t.GetMethod(a.Action + "_Name");
-                String s = (string)mi.Invoke(null, null);
-                cmo.Skillset = a.Skillset;
-                cmo.Action = a.Action;
-                m.AddMenuOption(s, cmo);
-            }
+            Action_MenuOption a_mo = m.gameObject.AddComponent<Action_MenuOption>();
+            a_mo.Action = s;
+            Action a = Engine.CombatManager.ActionTable[s];
+            m.AddMenuOption(a.GetName(), a_mo);
         }
-
     }
 }
