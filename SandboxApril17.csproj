@@ -110,9 +110,9 @@
     <Compile Include="Assets\scripts\interface\Prediction.cs" />
     <Compile Include="Assets\scripts\interface\UnitPanel.cs" />
     <Compile Include="Assets\scripts\menu options\Act_MenuOption.cs" />
+    <Compile Include="Assets\scripts\menu options\Action_MenuOption.cs" />
     <Compile Include="Assets\scripts\menu options\Attack_MenuOption.cs" />
     <Compile Include="Assets\scripts\menu options\CommandSet_MenuOption.cs" />
-    <Compile Include="Assets\scripts\menu options\Command_MenuOption.cs" />
     <Compile Include="Assets\scripts\menu options\Execute_MenuOption.cs" />
     <Compile Include="Assets\scripts\menu options\Move_MenuOption.cs" />
     <Compile Include="Assets\scripts\menu options\Wait_MenuOption.cs" />

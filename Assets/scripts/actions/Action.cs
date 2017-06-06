@@ -10,12 +10,14 @@ public class Action {
     public string CommandSet;
     public string PSXName;
     public string PSPName;
-    public string RangeH;
-    public string RangeV;
-    public string EffectH = "1";
-    public string EffectV = "1";
+    public string SelectableRange;
+    public int RangeH = 1;
+    public int RangeV = -1;
+    public string EffectPattern;
+    public int EffectH = 1;
+    public int EffectV = 1;
     public string Element;
-    public int CTR = 0;
+    public int CTR;
     public int Mod;
     public int Mp;
     public bool Evadeable;
@@ -26,17 +28,112 @@ public class Action {
         return SettingsManager.PSXTranslation ? PSXName : PSPName;
     }
 
-    public int GetRangeH(CombatUnit caster)
+    public void HighlightSelectableTiles(CombatUnit caster)
     {
-        if (RangeH == "")
+        Tile origin = caster.gameObject.GetComponent<TileOccupier>().GetOccupiedTile();
+
+        List<Tile> tiles = new List<Tile>();
+        if (SelectableRange == "Auto")
         {
-            return 1;
+            tiles.Add(origin);
         }
-        if (RangeH == "Weapon")
+        else if (SelectableRange == "Weapon")
         {
-            return caster.WeaponRange();
+            throw new NotImplementedException("Weapon range selection not implemented");
+            // Striking
+            // Piercing
+            // RangedArc
+            // RangedStraight
+        }
+        else
+        {
+            // Default pattern is a simple radius
+            Statics.RadiusTiles(caster.gameObject.GetComponent<TileOccupier>().GetOccupiedTile(), 2, false);
+            Tile[] radius = Engine.TileManager.FindTilesByRadius(origin, RangeH, !CasterImmune);
+            foreach (Tile t in radius)
+            {
+                if (RangeV == -1)
+                {
+                    // When vertical range is -1, there's no limit
+                    tiles.Add(t);
+                }
+                else
+                {
+                    float heightDiff = Math.Abs(t.GetEffectiveHeight() - origin.GetEffectiveHeight());
+                    if (heightDiff <= RangeV)
+                    {
+                        tiles.Add(t);
+                    }
+
+                }
+            }
         }
 
-        return int.Parse(RangeH);
+        Material m = Resources.Load("graphics/materials/utility/red_highlight", typeof(Material)) as Material;
+        foreach (Tile tile in tiles)
+        {
+            tile.Highlight(m);
+            tile.CurrentlySelectable = true;
+        }
+
+    }
+
+    internal string PredictedEffect(CombatUnit caster, CombatUnit target)
+    {
+        throw new NotImplementedException();
+    }
+
+    internal void HighlightAffectedTiles(Tile origin, CombatUnit caster)
+    {
+        List<Tile> excludes = new List<Tile>();
+        if (CasterImmune)
+        {
+            excludes.Add(caster.gameObject.GetComponent<TileOccupier>().GetOccupiedTile());
+        }
+        List<Tile> tiles = AffectedTiles(origin, excludes);
+
+        Material m = Resources.Load("graphics/materials/utility/yellow_highlight", typeof(Material)) as Material;
+        foreach (Tile tile in tiles)
+        {
+            tile.Highlight(m);
+        }
+    }
+
+    public List<Tile> AffectedTiles(Tile origin, List<Tile> excludes)
+    {
+        List<Tile> tiles = new List<Tile>();
+        if (EffectPattern == "Linear")
+        {
+            throw new NotImplementedException();
+        }
+        else
+        {
+            // Default pattern is simple radius
+            tiles = AffectedRadius(origin, excludes);
+        }
+        return tiles;
+    }
+
+    public List<Tile> AffectedRadius(Tile origin, List<Tile> excludes)
+    {
+        List<Tile> tiles = new List<Tile>();
+        // Radius is horizontal effect minus one because we're including the origin
+        Tile[] range = Engine.TileManager.FindTilesByRadius(origin, EffectH - 1, true);
+        foreach (Tile t in range)
+        {
+            if (!excludes.Contains(t))
+            {
+                if (Mathf.Abs(origin.Height - t.Height) <= EffectV)
+                {
+                    tiles.Add(t);
+                }
+            }
+        }
+        return tiles;
+    }
+
+    public void Execute(CombatUnit caster, Tile targetTile, CombatUnit targetUnit)
+    {
+        throw new NotImplementedException();
     }
 }

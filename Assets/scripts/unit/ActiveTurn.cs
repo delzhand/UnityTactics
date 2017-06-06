@@ -86,8 +86,8 @@ public class ActiveTurn : MonoBehaviour
                             TargetTile = Engine.MapCursor.GetTile();
 
                             Menu menu = (Menu)ReturnControlTo;
-                            Command_MenuOption cmo = (Command_MenuOption)menu.GetSelected();
-                            Type type = Type.GetType(cmo.Skillset);
+                            Action_MenuOption cmo = (Action_MenuOption)menu.GetSelected();
+                            Type type = Type.GetType(cmo.Action);
 
                             type.GetMethod(cmo.Action + "_HighlightAffectedTiles").Invoke(null, new System.Object[] { TargetTile });
 
@@ -160,7 +160,7 @@ public class ActiveTurn : MonoBehaviour
                         m.ReturnControlTo = this;
                         Menu r = (Menu)ReturnControlTo;
                         Execute_MenuOption e = m.gameObject.AddComponent<Execute_MenuOption>();
-                        e.Command = (Command_MenuOption)r.GetSelected();
+                        e.Command = (Action_MenuOption)r.GetSelected();
                         m.AddMenuOption("Execute", e);
                         m.AddMenuOption("Quit");
                     }
@@ -170,8 +170,8 @@ public class ActiveTurn : MonoBehaviour
                         WaitState = WaitState.WaitingForAction;
 
                         Menu menu = (Menu)ReturnControlTo;
-                        Command_MenuOption cmo = (Command_MenuOption)menu.GetSelected();
-                        Type type = Type.GetType(cmo.Skillset);
+                        Action_MenuOption cmo = (Action_MenuOption)menu.GetSelected();
+                        Type type = Type.GetType(cmo.Action);
                         type.GetMethod(cmo.Action + "_HighlightSelectableRange").Invoke(null, new System.Object[] { GetComponent<CombatUnit>() });
 
                         Prediction[] ps = ReturnControlTo.gameObject.GetComponents<Prediction>();
