@@ -229,4 +229,9 @@ public class CombatUnit : MonoBehaviour {
             return Side.Front;
         }
     }
+
+    public int WeaponRange()
+    {
+        return 1;
+    }
 }

@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-public class Skillset_MenuOption : MenuOption {
+public class CommandSet_MenuOption : MenuOption {
 
-    public string Skillset;
+    public string CommandSet;
 
     private void Start()
     {
@@ -19,7 +19,7 @@ public class Skillset_MenuOption : MenuOption {
 
         Menu m = new GameObject().AddComponent<Menu>();
         m.Attach = Menu.Attach;
-        m.name = Menu.Attach.name + " (" + Skillset + ")";
+        m.name = Menu.Attach.name + " (" + CommandSet + ")";
         m.ReturnControlTo = Menu;
         m.Top = 30;
         m.Left = 230;
@@ -27,7 +27,7 @@ public class Skillset_MenuOption : MenuOption {
         AvailableAction[] aas = Menu.Attach.GetComponents<AvailableAction>();
         foreach (AvailableAction a in aas)
         {
-            if (a.Skillset == Skillset)
+            if (a.Skillset == CommandSet)
             {
                 Command_MenuOption cmo = m.gameObject.AddComponent<Command_MenuOption>();
                 Type t = Type.GetType(a.Skillset);

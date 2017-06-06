@@ -19,10 +19,26 @@ public class CombatManager : MonoBehaviour {
     public int ProcessingUnit = 0;
     public bool Paused;
 
+    public Dictionary<string, Action> ActionTable;
+    public Dictionary<string, CommandSet> CommandSetTable;
+
     public bool DevMode = false;
 
     void Start() {
         Units = orderUnits();
+        Action[] actions = JsonHelper.FromJson<Action>(Resources.Load<TextAsset>("text/lists/actions").text);
+        ActionTable = new Dictionary<string, Action>();
+        foreach (Action a in actions)
+        {
+            ActionTable.Add(a.Id, a);
+        }
+
+        CommandSet[] commandSets = JsonHelper.FromJson<CommandSet>(Resources.Load<TextAsset>("text/lists/commandSets").text);
+        CommandSetTable = new Dictionary<string, CommandSet>();
+        foreach (CommandSet c in commandSets)
+        {
+            CommandSetTable.Add(c.Id, c);
+        }
     }
 
     void Update () {
