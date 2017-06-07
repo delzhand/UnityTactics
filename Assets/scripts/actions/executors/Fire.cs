@@ -2,68 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlackMagic : MonoBehaviour {
-
-    public static string GetName()
+public partial class Executor {
+    public static void Fire(CombatUnit caster, Tile targetTile, CombatUnit targetUnit)
     {
-        return SettingsManager.PSXTranslation ? "Black Magic" : "Black Magicks";
-    }
+        Action action = Engine.CombatManager.ActionTable["Fire"];
 
-    #region Fire
-    public static string Fire_Name()
-    {
-        return "Fire";
-    }
-
-    public static Tile[] Fire_SelectableRange(CombatUnit caster)
-    {
-        return Engine.TileManager.FindTilesByRadius(caster.gameObject.GetComponent<TileOccupier>().GetOccupiedTile(), 4, false);
-    }
-
-    public static void Fire_Highlight_SelectableRange(CombatUnit caster)
-    {
-        Engine.TileManager.ClearHighlights();
-        Tile[] tiles = Fire_SelectableRange(caster);
-        foreach (Tile t in tiles)
-        {
-            t.Highlight("red_highlight");
-        }
-    }
-
-    public static string Fire_PredictedEffect(CombatUnit caster, CombatUnit target)
-    {
-        int damage = Statics.Mod5(Element.Fire, 14, caster, target);
-        return "-" + damage.ToString() + " 100%";
-    }
-
-    public static void Fire_HighlightAffectedTiles(Tile origin)
-    {
-        Statics.HighlightTiles(Fire_AffectedTiles(origin));
-    }
-
-    public static List<Tile> Fire_AffectedTiles(Tile origin)
-    {
-        return Statics.AffectedTiles(1, 0, origin, true);
-    }
-
-    public static int Fire_CTR()
-    {
-        return 4;
-    }
-
-    public static void Fire_Execute(CombatUnit caster, Tile targetTile, CombatUnit targetUnit)
-    {
         Timeline t = new GameObject("Fire Timeline").AddComponent<Timeline>();
         t.gameObject.AddComponent<CameraFocus_TimelineEvent>().Init(t, 0, caster.transform.position, .5f);
         t.Advance(.5f);
 
-        t.gameObject.AddComponent<Message_TimelineEvent>().Init(t, 0, "Effect", Fire_Name());
+        t.gameObject.AddComponent<Message_TimelineEvent>().Init(t, 0, "Effect", action.GetName());
         t.Advance(.15f);
 
         t.gameObject.AddComponent<FaceTile_TimelineEvent>().Init(t, 0, caster.GetComponent<Facer>(), targetTile);
         t.Advance(.25f); // Moment of impact
 
-        List<Tile> affected = Fire_AffectedTiles(targetTile);
+        List<Tile> affected = action.AffectedTiles(targetTile, new List<Tile>());
         foreach (Tile affectedTile in affected)
         {
             TileOccupier tO = TileOccupier.GetTileOccupant(affectedTile);
@@ -88,6 +42,5 @@ public class BlackMagic : MonoBehaviour {
         t.gameObject.AddComponent<DestroyTimeline_TimelineEvent>().Init(t, .25f);
         t.PlayFromStart();
     }
-    #endregion
 
 }

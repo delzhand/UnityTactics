@@ -17,14 +17,6 @@ public class Engine : MonoBehaviour {
     public static GUIStyle GuiStyleLabel;
     public static GUIStyle GuiStyleBox;
 
-    public static float sA;
-    public static float sB;
-    public static float sC;
-
-    public float A;
-    public float B;
-    public float C;
-
     private void OnGUI()
     {
         Engine.GuiStyleLabel = new GUIStyle(GUI.skin.label);
@@ -33,10 +25,6 @@ public class Engine : MonoBehaviour {
         Engine.GuiStyleBox = new GUIStyle(GUI.skin.box);
         Engine.GuiStyleBox.fontSize = 14;
         Engine.GuiStyleBox.alignment = TextAnchor.UpperLeft;
-
-        Engine.sA = A;
-        Engine.sB = B;
-        Engine.sC = C;
     }
 
     void Awake ()
