@@ -41,6 +41,7 @@ public class Execute_MenuOption : MenuOption {
             // Fast Action
             Engine.CombatManager.ActionTable[Action].Execute(caster, t, null);
             WaitingForExecution = true;
+            Engine.AssignControl(this);
         }
         else
         {
