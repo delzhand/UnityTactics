@@ -11,4 +11,8 @@ public class Formulas {
     {
         return xa * (caster.WP + 2);
     }
+    public static int ThrowStone(int xa, CombatUnit caster)
+    {
+        return xa * UnityEngine.Random.Range(1, 2);
+    }
 }

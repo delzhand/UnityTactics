@@ -8,7 +8,7 @@
       "SelectableRange": "Auto"
     },
     {
-      "Id": "Stone",
+      "Id": "ThrowStone",
       "CommandSet": "BasicSkill",
       "PSXName": "Throw Stone",
       "PSPName": "Stone",
@@ -29,7 +29,7 @@
       "Mp": 6
     },
     {
-      "Id": "Fire 2",
+      "Id": "Fire2",
       "CommandSet": "BlackMagic",
       "PSXName": "Fire 2",
       "PSPName": "Fira",
