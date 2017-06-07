@@ -9,8 +9,6 @@ public enum WaitState
     None,
     WaitingForMovement,
     WaitingForMoveConfirm,
-    WaitingForAction,
-    WaitingForActionConfirm,
 }
 
 public class ActiveTurn : MonoBehaviour
@@ -71,59 +69,6 @@ public class ActiveTurn : MonoBehaviour
                         Engine.MapCursor.GoToTile();
                     }
                     break;
-                case WaitState.WaitingForAction:
-                    Engine.MapCursor.DelegatedInput();
-                    if (Engine.InputManager.Accept)
-                    {
-
-                        Engine.InputManager.Accept = false;
-                        TargetTile = Engine.MapCursor.GetTile();
-                        if (TargetTile.CurrentlySelectable)
-                        {
-                            Engine.InputManager.Accept = false;
-                            GetComponent<UnitPanel>().ModeOverride = 1;
-                            WaitState = WaitState.WaitingForActionConfirm;
-                            TargetTile = Engine.MapCursor.GetTile();
-
-                            Menu menu = (Menu)ReturnControlTo;
-                            Action_MenuOption cmo = (Action_MenuOption)menu.GetSelected();
-                            Type type = Type.GetType(cmo.Action);
-
-                            type.GetMethod(cmo.Action + "_HighlightAffectedTiles").Invoke(null, new System.Object[] { TargetTile });
-
-                            CombatUnit caster = GetComponent<CombatUnit>();
-                            if (TileOccupier.GetTileOccupant(TargetTile) != null)
-                            {
-                                CombatUnit target = TileOccupier.GetTileOccupant(TargetTile).GetComponent<CombatUnit>();
-                                if (target)
-                                {
-                                    Prediction p = ReturnControlTo.gameObject.AddComponent<Prediction>();
-                                    p.Effect = (string)type.GetMethod(cmo.Action + "_PredictedEffect").Invoke(null, new System.Object[] { caster, target });
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Message m = new GameObject().AddComponent<Message>();
-                            m.BoxMessageLabel = "Check";
-                            m.BoxMessage = "Select within range.";
-                            m.ReturnControlTo = this;
-                            Engine.AssignControl(m);
-                        }
-                    }
-                    else if (Engine.InputManager.Cancel)
-                    {
-                        WaitState = WaitState.None;
-                        Engine.InputManager.Cancel = false;
-                        Engine.AssignControl(ReturnControlTo);
-                        Menu.ShowAllMenus();
-                        Engine.PathManager.ClearAll(false);
-                        Engine.CameraManager.SetTargetPosition(transform.position, .5f);
-                        Engine.MapCursor.X = GetComponent<TileOccupier>().X;
-                        Engine.MapCursor.Y = GetComponent<TileOccupier>().Y;
-                        Engine.MapCursor.GoToTile();
-                    }
-                    break;
                 case WaitState.WaitingForMoveConfirm:
                     if (Engine.InputManager.Accept)
                     {
@@ -145,39 +90,6 @@ public class ActiveTurn : MonoBehaviour
                         foreach (Waypoint w in GetComponents<Waypoint>())
                         {
                             Destroy(w);
-                        }
-                    }
-                    break;
-                case WaitState.WaitingForActionConfirm:
-                    if (Engine.InputManager.Accept)
-                    {
-                        Engine.InputManager.Accept = false;
-                        Menu m = new GameObject().AddComponent<Menu>();
-                        m.Attach = gameObject;
-                        m.Top = 180;
-                        m.Left = Screen.width - 360;
-                        m.name = "Confirm Effect";
-                        m.ReturnControlTo = this;
-                        Menu r = (Menu)ReturnControlTo;
-                        Execute_MenuOption e = m.gameObject.AddComponent<Execute_MenuOption>();
-                        e.Command = (Action_MenuOption)r.GetSelected();
-                        m.AddMenuOption("Execute", e);
-                        m.AddMenuOption("Quit");
-                    }
-                    if (Engine.InputManager.Cancel)
-                    {
-                        Engine.InputManager.Cancel = false;
-                        WaitState = WaitState.WaitingForAction;
-
-                        Menu menu = (Menu)ReturnControlTo;
-                        Action_MenuOption cmo = (Action_MenuOption)menu.GetSelected();
-                        Type type = Type.GetType(cmo.Action);
-                        type.GetMethod(cmo.Action + "_HighlightSelectableRange").Invoke(null, new System.Object[] { GetComponent<CombatUnit>() });
-
-                        Prediction[] ps = ReturnControlTo.gameObject.GetComponents<Prediction>();
-                        foreach (Prediction p in ps)
-                        {
-                            Destroy(p);
                         }
                     }
                     break;

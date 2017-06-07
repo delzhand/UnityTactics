@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 
@@ -132,8 +133,86 @@ public class Action {
         return tiles;
     }
 
+    public bool CanBeCast(CombatUnit caster)
+    {
+        return true;
+    }
+
     public void Execute(CombatUnit caster, Tile targetTile, CombatUnit targetUnit)
     {
-        throw new NotImplementedException();
+        Type.GetType("Executor").GetMethod(Id).Invoke(null, new object[] { caster, targetTile, targetUnit });
     }
+
+    public static int Mod2(int xa, bool critical, Element element, CombatUnit caster, CombatUnit target, MethodInfo formula)
+    {
+        // Critical
+        if (critical)
+        {
+            xa += UnityEngine.Random.Range(1, (xa - 1));
+        }
+
+        // Caster Elemental Strengthen
+
+        // Caster Attack Up support
+
+        // Caster Martial Arts
+
+        // Caster Berserk
+
+        // Target Defense Up
+
+        // Target Protect
+
+        // Target Charging
+
+        // Target Sleeping
+
+        // Target Chicken/Frog
+
+        // Caster+Target Zodiac
+        xa = ZodiacCompatibility.Modify(xa, caster, target);
+
+        int damage = (int)formula.Invoke(null, new object[] { xa, caster });
+
+        // Target Elemental Weak
+
+        // Target Elemental Halved
+
+        // Target Elemental Absorb
+
+        return damage;
+    }
+
+    public static int Mod5(Element element, int spellPower, CombatUnit caster, CombatUnit target)
+    {
+        int damage = 0;
+        float frac = 1;
+        int xa = caster.MA;
+
+        // Caster Elemental Strengthen
+
+        // Caster Magic Up
+
+        // Target Magic Defend Up
+
+        // Target Shell
+
+        // Caster+Target Zodiac
+        xa = ZodiacCompatibility.Modify(xa, caster, target);
+
+        // Caster/Target Faith status
+
+        // Weather Elemental effect
+
+        // Target Elemental Weakness
+
+        // Target Elemental Half
+
+        // Target Elemental Absorb
+
+        damage = (int)(caster.Faith * target.Faith * spellPower * xa * frac / 10000f);
+
+        return damage;
+    }
+
 }
