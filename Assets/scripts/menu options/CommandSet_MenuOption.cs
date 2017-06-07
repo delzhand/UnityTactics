@@ -27,10 +27,13 @@ public class CommandSet_MenuOption : MenuOption {
         string[] actions = Menu.Attach.GetComponent<AvailableActions>().Actions;
         foreach (string s in actions)
         {
-            Action_MenuOption a_mo = m.gameObject.AddComponent<Action_MenuOption>();
-            a_mo.Action = s;
             Action a = Engine.CombatManager.ActionTable[s];
-            m.AddMenuOption(a.GetName(), a_mo);
+            if (a.CommandSet == CommandSet)
+            {
+                Action_MenuOption a_mo = m.gameObject.AddComponent<Action_MenuOption>();
+                a_mo.Action = s;
+                m.AddMenuOption(a.GetName(), a_mo);
+            }
         }
     }
 }
