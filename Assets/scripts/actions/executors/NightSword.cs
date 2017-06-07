@@ -4,48 +4,16 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-public class DarkSword : MonoBehaviour {
-
-    public static string GetName()
+public partial class Executor {
+  public static void NightSword(CombatUnit caster, Tile targetTile, CombatUnit targetUnit)
     {
-        return SettingsManager.PSXTranslation ? "Dark Sword" : "Fell Sword";
-    }
+        Action action = Engine.CombatManager.ActionTable["NightSword"];
 
-    #region Accumulate
-    public static string NightSword_Name()
-    {
-        return SettingsManager.PSXTranslation ? "Night Sword" : "Shadowblade";
-    }
-
-    public static int NightSword_CTR()
-    {
-        return 0;
-    }
-
-    public static string NightSword_PredictedEffect(CombatUnit caster, CombatUnit target)
-    {
-        return "-" + NightSword_PredictedDamage(caster, target) + " 100%";
-    }
-
-    private static int NightSword_PredictedDamage(CombatUnit caster, CombatUnit target)
-    {
-        MethodInfo formula = Type.GetType("DarkSword").GetMethod("NightSword_Formula");
-        int damage = Statics.Mod2(caster.PA, false, Element.None, caster, target, formula);
-        return damage;
-    }
-
-    public static int NightSword_Formula(int xa, CombatUnit caster)
-    {
-        return xa * caster.WP;
-    }
-
-    public static void NightSword_Execute(CombatUnit caster, Tile targetTile, CombatUnit targetUnit)
-    {
         Timeline t = new GameObject("NightSword Timeline").AddComponent<Timeline>();
         t.gameObject.AddComponent<CameraFocus_TimelineEvent>().Init(t, 0, caster.transform.position, .5f);
         t.Advance(.5f);
 
-        t.gameObject.AddComponent<Message_TimelineEvent>().Init(t, 0, "Effect", NightSword_Name());
+        t.gameObject.AddComponent<Message_TimelineEvent>().Init(t, 0, "Effect", action.GetName());
         t.Advance(.15f);
 
         t.gameObject.AddComponent<FaceTile_TimelineEvent>().Init(t, 0, caster.GetComponent<Facer>(), targetTile);
@@ -57,9 +25,9 @@ public class DarkSword : MonoBehaviour {
         if (tO != null)
         {
             targetUnit = tO.GetComponent<CombatUnit>();
+            MethodInfo formula = Type.GetType("Formulas").GetMethod(action.Id);
             bool critical = (UnityEngine.Random.Range(1, 100) <= 5);
-            MethodInfo formula = Type.GetType("DarkSword").GetMethod("NightSword_Formula");
-            int damage = Statics.Mod2(caster.PA, critical, Element.None, caster, targetUnit, formula);
+            int damage = Action.Mod2(caster.PA, critical, Element.None, caster, targetUnit, formula);
 
             targetUnit.TakeDamage(damage);
 
@@ -83,21 +51,4 @@ public class DarkSword : MonoBehaviour {
         t.gameObject.AddComponent<DestroyTimeline_TimelineEvent>().Init(t, .25f);
         t.PlayFromStart();
     }
-
-    public static Tile[] NightSword_SelectableRange(CombatUnit Caster)
-    {
-        return Engine.TileManager.FindTilesByRadius(Caster.gameObject.GetComponent<TileOccupier>().GetOccupiedTile(), 3, false);
-    }
-
-    public static void NightSword_HighlightAffectedTiles(Tile origin)
-    {
-        Statics.HighlightTiles(NightSword_AffectedTiles(origin));
-    }
-
-    public static List<Tile> NightSword_AffectedTiles(Tile origin)
-    {
-        return Statics.AffectedTiles(origin);
-    }
-    #endregion
-
 }
