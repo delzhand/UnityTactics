@@ -1,0 +1,28 @@
+{
+  "Items": [
+    {
+      "Id": "MythrilSword",
+      "Type": "Sword",
+      "PSXName": "Mythril Sword",
+      "Cost": 1600,
+      "WP": 7,
+      "WEv": 8
+    },
+    {
+      "Id": "Longbow",
+      "Type": "Bow",
+      "WP": 4,
+      "Cost": 800,
+      "MaxRange": 5,
+      "MinRange": 3
+    },
+    {
+      "Id": "MythrilKnife",
+      "Type": "Knife",
+      "PSXName": "Mythril Knife",
+      "Cost": 500,
+      "WP": 4,
+      "WEv": 5
+    }
+  ]
+}

@@ -31,11 +31,10 @@ public class CombatUnit : MonoBehaviour {
     public int MaxMP;
     public int PA;
     public int MA;
-    public int WP;
     public int ClassEvade;
     public int ShieldEvade;
     public int AccessoryEvade;
-    public int WeaponEvade;
+    public string Weapon;
 
     public bool Guest;
     public bool Enemy;
@@ -137,6 +136,16 @@ public class CombatUnit : MonoBehaviour {
         }
     }
 
+    public int WeaponEvade()
+    {
+        if (false) // equipped with Weapon Guard
+        {
+            // I don't think there's ever a case where you can dual wield weapons with evade...
+            return Engine.CombatManager.WeaponTable[Weapon].WEv;
+        }
+        return 0;
+    }
+
     public int EvadeRate(Side side, int baseHit)
     {
         int evade = 100 - baseHit;
@@ -146,12 +155,12 @@ public class CombatUnit : MonoBehaviour {
                 evade += ClassEvade;
                 evade += ShieldEvade;
                 evade += AccessoryEvade;
-                evade += WeaponEvade;
+                evade += WeaponEvade();
                 break;
             case Side.Side:
                 evade += ShieldEvade;
                 evade += AccessoryEvade;
-                evade += WeaponEvade;
+                evade += WeaponEvade();
                 break;
             case Side.Back:
                 evade += AccessoryEvade;
@@ -168,7 +177,7 @@ public class CombatUnit : MonoBehaviour {
         switch(side)
         {
             case Side.Front:
-                totalEvade = ClassEvade + ShieldEvade + AccessoryEvade + WeaponEvade;
+                totalEvade = ClassEvade + ShieldEvade + AccessoryEvade + WeaponEvade();
                 pick = UnityEngine.Random.Range(1, totalEvade);
                 if (pick <= ClassEvade + AccessoryEvade)
                 {
@@ -178,13 +187,13 @@ public class CombatUnit : MonoBehaviour {
                 {
                     return 1;
                 }
-                else if (pick <= ClassEvade + AccessoryEvade + ShieldEvade + WeaponEvade)
+                else if (pick <= ClassEvade + AccessoryEvade + ShieldEvade + WeaponEvade())
                 {
                     return 2;
                 }
                 break;
             case Side.Side:
-                totalEvade = ShieldEvade + AccessoryEvade + WeaponEvade;
+                totalEvade = ShieldEvade + AccessoryEvade + WeaponEvade();
                 pick = UnityEngine.Random.Range(1, totalEvade);
                 if (pick <= AccessoryEvade)
                 {
@@ -194,7 +203,7 @@ public class CombatUnit : MonoBehaviour {
                 {
                     return 1;
                 }
-                else if (pick <= AccessoryEvade + ShieldEvade + WeaponEvade)
+                else if (pick <= AccessoryEvade + ShieldEvade + WeaponEvade())
                 {
                     return 2;
                 }
@@ -230,8 +239,12 @@ public class CombatUnit : MonoBehaviour {
         }
     }
 
-    public int WeaponRange()
+    public int WP()
     {
-        return 1;
+        if (Weapon.Length > 0)
+        {
+            return Engine.CombatManager.WeaponTable[Weapon].WP;
+        }
+        return 0;
     }
 }

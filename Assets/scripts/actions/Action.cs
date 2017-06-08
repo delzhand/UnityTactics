@@ -26,7 +26,22 @@ public class Action {
 
     public string GetName()
     {
-        return SettingsManager.PSXTranslation ? PSXName : PSPName;
+        if (PSXName.Length == 0 && PSPName.Length == 0)
+        {
+            return Id;
+        }
+        else if (PSPName.Length == 0)
+        {
+            return PSXName;
+        }
+        else if (PSXName.Length == 0)
+        {
+            return PSPName;
+        }
+        else
+        {
+            return SettingsManager.PSXTranslation ? PSXName : PSPName;
+        }
     }
 
     public void HighlightSelectableTiles(CombatUnit caster)

@@ -78,7 +78,7 @@ public class Attack {
 
     public static int Strike_Formula(int xa, CombatUnit caster)
     {
-        return xa * caster.WP;
+        return xa * caster.WP();
     }
 
     private static int Strike_PredictedSuccess(CombatUnit caster, CombatUnit target)
@@ -248,7 +248,7 @@ public class Attack {
 
     public static int Bow_Formula(int xa, CombatUnit caster)
     {
-        return xa * caster.WP;
+        return xa * caster.WP();
     }
 
     private static int Bow_PredictedSuccess(CombatUnit caster, CombatUnit target)

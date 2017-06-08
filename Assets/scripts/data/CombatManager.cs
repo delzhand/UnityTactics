@@ -21,6 +21,7 @@ public class CombatManager : MonoBehaviour {
 
     public Dictionary<string, Action> ActionTable;
     public Dictionary<string, CommandSet> CommandSetTable;
+    public Dictionary<string, Weapon> WeaponTable;
 
     public bool DevMode = false;
 
@@ -38,6 +39,12 @@ public class CombatManager : MonoBehaviour {
         foreach (CommandSet c in commandSets)
         {
             CommandSetTable.Add(c.Id, c);
+        }
+
+        Weapon[] weapons = JsonHelper.FromJson<Weapon>(Resources.Load<TextAsset>("text/lists/weapons").text);
+        foreach (Weapon w in weapons)
+        {
+            WeaponTable.Add(w.Id, w);
         }
     }
 

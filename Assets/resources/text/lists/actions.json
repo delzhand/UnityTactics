@@ -18,8 +18,6 @@
     {
       "Id": "Fire",
       "CommandSet": "BlackMagic",
-      "PSXName": "Fire",
-      "PSPName": "Fire",
       "RangeH": 4,
       "CTR": 4,
       "EffectH": 2,
