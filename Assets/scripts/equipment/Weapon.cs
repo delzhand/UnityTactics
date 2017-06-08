@@ -28,8 +28,20 @@ public class Weapon {
                 tiles = LineOfSightSelectable(origin);
                 break;
             case "Parabola":
-                Debug.Log("Parabola currently using LOS.");
-                tiles = LineOfSightSelectable(origin);
+                foreach(Tile t in Engine.TileManager.AllTiles())
+                {
+                    int heightDiff = (int)(origin.GetEffectiveHeight() - t.GetEffectiveHeight())/2;
+                    int range = heightDiff + 5;
+                    if (Tile.GetDistance(t, origin) <= range)
+                    {
+                        tiles.Add(t);
+                    }
+                }
+                foreach (Tile t in Engine.TileManager.FindTilesByRadius(origin, MinRange - 1, true))
+                {
+                    tiles.Remove(t);
+                }
+
                 break;
             default:
                 foreach (Tile t in Engine.TileManager.FindTilesByRadius(origin, MaxRange, false))

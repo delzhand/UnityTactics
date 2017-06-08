@@ -75,9 +75,8 @@ public class PathManager : MonoBehaviour {
     public void MarkValidTiles()
     {
         ClearAll(true);
-        TileManager tileManager = gameObject.GetComponent<TileManager>();
 
-        Tile origin = tileManager.FindTile(OriginX, OriginY);
+        Tile origin = Engine.TileManager.FindTile(OriginX, OriginY);
         origin.SearchNeighbors = 1;
 
         for (int i = 0; i < MaxRange; i++)
@@ -94,7 +93,7 @@ public class PathManager : MonoBehaviour {
         // Now go through and remove all the tiles occupied by allied units (tiles occupied by enemy units shouldn't even be available)
         foreach (TileOccupier tO in GameObject.Find("Units").transform.GetComponentsInChildren<TileOccupier>())
         {
-            Tile[] selectableTiles = tileManager.FindSelectableTiles();
+            Tile[] selectableTiles = Engine.TileManager.FindSelectableTiles();
             for (int i = 0; i < selectableTiles.Length; i++)
             {
                 if (selectableTiles[i].X == tO.X && selectableTiles[i].Y == tO.Y && selectableTiles[i].ElevationIndex == tO.Index)

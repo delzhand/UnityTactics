@@ -507,4 +507,9 @@ public class Tile : MonoBehaviour {
             t.BestParent = new KeyValuePair<Tile, int>(this, cost);
         }
     }
+
+    public static int GetDistance(Tile a, Tile b)
+    {
+        return Math.Abs(a.X - b.X) + Math.Abs(a.Y - b.Y);
+    }
 }

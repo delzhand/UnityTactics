@@ -19,6 +19,16 @@ public class TileManager : MonoBehaviour
         Gizmos.DrawLine(new Vector3(StageWidth - .5f, 0, -.5f), new Vector3(StageWidth - .5f, 0, StageLength - .5f));
     }
 
+    public List<Tile> AllTiles()
+    {
+        List<Tile> tiles = new List<Tile>();
+        foreach(Transform child in transform)
+        {
+            tiles.Add(child.GetComponent<Tile>());
+        }
+        return tiles;
+    }
+
     public Tile FindTile(int x, int y, int elevationIndex = 0)
     {
         Tile[] tiles = FindTiles(x, y);
@@ -79,6 +89,7 @@ public class TileManager : MonoBehaviour
         //
         //return tiles;
     }
+
 
     public Tile[] FindTilesInDirection(Tile origin, Direction d, int distance)
     {
