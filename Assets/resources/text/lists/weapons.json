@@ -11,6 +11,7 @@
     {
       "Id": "Longbow",
       "Type": "Bow",
+      "AttackPattern": "Parabola",
       "WP": 4,
       "Cost": 800,
       "MaxRange": 5,

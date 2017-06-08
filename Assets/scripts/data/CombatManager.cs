@@ -42,6 +42,7 @@ public class CombatManager : MonoBehaviour {
         }
 
         Weapon[] weapons = JsonHelper.FromJson<Weapon>(Resources.Load<TextAsset>("text/lists/weapons").text);
+        WeaponTable = new Dictionary<string, Weapon>();
         foreach (Weapon w in weapons)
         {
             WeaponTable.Add(w.Id, w);

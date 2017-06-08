@@ -1,6 +1,34 @@
-﻿//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Attack_MenuOption : TargetableAction_MenuOption
+{
+
+    private void Start()
+    {
+        Caster = Menu.Attach.GetComponent<CombatUnit>();
+        valid = true; // Can always attack - otherwise the parent "Act" menu item wouldn't be valid
+    }
+
+    public override void HighlightSelectableTiles() {
+        Engine.CombatManager.WeaponTable[Caster.Weapon].HighlightSelectableTiles(Caster.gameObject.GetComponent<TileOccupier>().GetOccupiedTile());
+    }
+
+    public override void HighlightAffectedTiles(Tile TargetTile) {
+        Material m = Resources.Load("graphics/materials/utility/yellow_highlight", typeof(Material)) as Material;
+        TargetTile.Highlight(m);
+    }
+
+    public override void PredictEffect(CombatUnit Target) {
+    }
+
+    public override void SetExecute(Execute_MenuOption e) {
+        e.Action = "Attack";
+    }
+
+
+}
 
 //public class Attack_MenuOption : Command_MenuOption {
 

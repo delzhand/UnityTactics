@@ -26,7 +26,8 @@ public class Act_MenuOption : MenuOption {
         Engine.InputManager.Attach = m;
 
         // Attack
-
+        Attack_MenuOption a_mo = m.gameObject.AddComponent<Attack_MenuOption>();
+        m.AddMenuOption("Attack", a_mo);
 
         // Command Sets
         List<string> commandSets = new List<string>();
