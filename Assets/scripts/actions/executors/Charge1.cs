@@ -8,13 +8,9 @@ public partial class Executor
 {
     public static void Charge1(CombatUnit caster, Tile targetTile, CombatUnit targetUnit)
     {
-        Action action = Engine.CombatManager.ActionTable["Charge1"];
-
-        Timeline t = new GameObject(action.GetName() + " Timeline").AddComponent<Timeline>();
-
-        t.gameObject.AddComponent<Message_TimelineEvent>().Init(t, 0, "Effect", action.GetName());
-        t.Advance(.15f);
-
+        string action_id = System.Reflection.MethodBase.GetCurrentMethod().Name;
+        Action action = Engine.CombatManager.ActionTable[action_id];
+        Timeline t = ActionPatterns.Start(action, true);
         ActionPatterns.UseWeapon(t, caster, targetTile);
 
         targetUnit = ActionPatterns.TargetUnit(targetTile);
@@ -22,7 +18,7 @@ public partial class Executor
         {
             bool critical = Action.GetCritical();
             bool hitSuccess = Action.HitSuccess(caster, targetUnit, 100);
-            int damage = Action.Mod2(caster.PA, critical, Element.None, caster, targetUnit, System.Reflection.MethodBase.GetCurrentMethod().Name);
+            int damage = Action.Mod2(caster.PA, critical, Element.None, caster, targetUnit, action_id);
 
             if (hitSuccess)
             {

@@ -4,8 +4,20 @@ using UnityEngine;
 
 public class ActionPatterns : MonoBehaviour {
 
+    public static Timeline Start(Action action, bool showMessage)
+    {
+        Timeline t = new GameObject(action.GetName() + " Timeline").AddComponent<Timeline>();
+        if (showMessage)
+        {
+            t.gameObject.AddComponent<Message_TimelineEvent>().Init(t, 0, "Effect", action.GetName());
+            t.Advance(.15f);
+        }
+        return t;
+    }
+
     public static void UseWeapon(Timeline t, CombatUnit caster, Tile targetTile)
     {
+        t.gameObject.AddComponent<FaceTile_TimelineEvent>().Init(t, 0, caster.GetComponent<Facer>(), targetTile);
         Weapon w = Engine.CombatManager.WeaponTable[caster.Weapon];
         switch (w.Type)
         {
@@ -21,7 +33,6 @@ public class ActionPatterns : MonoBehaviour {
 
     public static void SwingSword(Timeline t, CombatUnit caster, Tile targetTile)
     {
-        t.gameObject.AddComponent<FaceTile_TimelineEvent>().Init(t, 0, caster.GetComponent<Facer>(), targetTile);
         t.gameObject.AddComponent<UnitAnimation_TimelineEvent>().Init(t, 0, "Armature|SwordAttack", caster.GetComponentInChildren<Animator>());
         t.gameObject.AddComponent<PlaySound_TimelineEvent>().Init(t, 0, "sword_swing");
         t.Advance(.25f); // Moment of impact
@@ -29,7 +40,6 @@ public class ActionPatterns : MonoBehaviour {
 
     public static void FireBow(Timeline t, CombatUnit caster, Tile targetTile)
     {
-        t.gameObject.AddComponent<FaceTile_TimelineEvent>().Init(t, 0, caster.GetComponent<Facer>(), targetTile);
         t.gameObject.AddComponent<UnitAnimation_TimelineEvent>().Init(t, 0, "Armature|LongbowAttack", caster.GetComponentInChildren<Animator>());
 
         // Find out what and when the arrow will hit
