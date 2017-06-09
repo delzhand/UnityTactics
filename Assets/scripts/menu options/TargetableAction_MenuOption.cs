@@ -20,6 +20,10 @@ public abstract class TargetableAction_MenuOption : MenuOption {
 
     private void Update()
     {
+        if (Engine.InputManager.Attach != this)
+        {
+            return;
+        }
         switch (State)
         {
             case TargetableActionState.WaitingForTileSelect:

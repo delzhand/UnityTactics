@@ -55,11 +55,7 @@ public class Action {
         }
         else if (SelectableRange == "Weapon")
         {
-            throw new NotImplementedException("Weapon range selection not implemented");
-            // Striking
-            // Piercing
-            // RangedArc
-            // RangedStraight
+            tiles = Engine.CombatManager.WeaponTable[caster.Weapon].GetSelectableTiles(origin);
         }
         else
         {
@@ -155,6 +151,10 @@ public class Action {
 
     public void Execute(CombatUnit caster, Tile targetTile, CombatUnit targetUnit)
     {
+        if (Id == "Attack")
+        {
+            Id += Engine.CombatManager.WeaponTable[caster.Weapon].Type;
+        }
         Type.GetType("Executor").GetMethod(Id).Invoke(null, new object[] { caster, targetTile, targetUnit });
     }
 

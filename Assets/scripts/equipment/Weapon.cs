@@ -19,8 +19,19 @@ public class Weapon {
 
     public void HighlightSelectableTiles(Tile origin)
     {
+        List<Tile> tiles = GetSelectableTiles(origin);
+        foreach (Tile t in tiles)
+        {
+            Material m = Resources.Load("graphics/materials/utility/red_highlight", typeof(Material)) as Material;
+            t.Highlight(m);
+            t.CurrentlySelectable = true;
+        }
+    }
+
+    public List<Tile> GetSelectableTiles(Tile origin)
+    {
         List<Tile> tiles = new List<Tile>();
-        switch(AttackPattern)
+        switch (AttackPattern)
         {
             case "Lunge":
                 throw new NotImplementedException("Lunging weapon pattern not implemented.");
@@ -28,9 +39,9 @@ public class Weapon {
                 tiles = LineOfSightSelectable(origin);
                 break;
             case "Parabola":
-                foreach(Tile t in Engine.TileManager.AllTiles())
+                foreach (Tile t in Engine.TileManager.AllTiles())
                 {
-                    int heightDiff = (int)(origin.GetEffectiveHeight() - t.GetEffectiveHeight())/2;
+                    int heightDiff = (int)(origin.GetEffectiveHeight() - t.GetEffectiveHeight()) / 2;
                     int range = heightDiff + 5;
                     if (Tile.GetDistance(t, origin) <= range)
                     {
@@ -41,7 +52,6 @@ public class Weapon {
                 {
                     tiles.Remove(t);
                 }
-
                 break;
             default:
                 foreach (Tile t in Engine.TileManager.FindTilesByRadius(origin, MaxRange, false))
@@ -50,11 +60,7 @@ public class Weapon {
                 }
                 break;
         }
-        foreach (Tile t in tiles)
-        {
-            Material m = Resources.Load("graphics/materials/utility/red_highlight", typeof(Material)) as Material;
-            t.Highlight(m);
-        }
+        return tiles;
     }
 
     private List<Tile> LineOfSightSelectable(Tile origin)

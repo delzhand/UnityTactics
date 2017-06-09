@@ -1,6 +1,11 @@
 {
   "Items": [
     {
+      "Id": "Attack",
+      "SelectableRange": "Weapon",
+      "Element": "WeaponElement"
+    },
+    {
       "Id": "Accumulate",
       "CommandSet": "BasicSkill",
       "PSXName": "Accumulate",

@@ -3,6 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Formulas {
+    public static int Attack(int xa, CombatUnit caster)
+    {
+        if (caster.Weapon.Length == 0)
+        {
+            // bare hands
+            return xa * caster.PA;
+        }
+        else
+        {
+            return xa * caster.WP();
+        }
+    }
     public static int NightSword(int xa, CombatUnit caster)
     {
         return xa * caster.WP();
