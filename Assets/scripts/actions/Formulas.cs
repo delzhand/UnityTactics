@@ -15,6 +15,14 @@ public class Formulas {
             return xa * caster.WP();
         }
     }
+    public static int Charge1(int xa, CombatUnit caster)
+    {
+        return Charge(xa, caster, 1);
+    }
+    public static int Charge(int xa, CombatUnit caster, int charge)
+    {
+        return Attack(xa, caster);
+    }
     public static int NightSword(int xa, CombatUnit caster)
     {
         return xa * caster.WP();

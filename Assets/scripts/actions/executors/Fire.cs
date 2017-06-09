@@ -24,7 +24,7 @@ public partial class Executor {
             if (tO != null)
             {
                 targetUnit = tO.GetComponent<CombatUnit>();
-                int damage = Statics.Mod5(Element.Fire, 14, caster, targetUnit);
+                int damage = Action.Mod5(Element.Fire, 14, caster, targetUnit);
 
                 targetUnit.TakeDamage(damage);
 

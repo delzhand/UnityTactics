@@ -27,8 +27,8 @@ public partial class Executor {
         {
             targetUnit = tO.GetComponent<CombatUnit>();
 
-            MethodInfo formula = Type.GetType("Formulas").GetMethod(action.Id);
-            int damage = Statics.Mod2(caster.PA, false, Element.None, caster, targetUnit, formula);
+            int damage = Action.Mod2(caster.PA, false, Element.None, caster, targetUnit, System.Reflection.MethodBase.GetCurrentMethod().Name);
+
 
             targetUnit.TakeDamage(damage);
 

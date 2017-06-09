@@ -25,9 +25,9 @@ public partial class Executor {
         if (tO != null)
         {
             targetUnit = tO.GetComponent<CombatUnit>();
-            MethodInfo formula = Type.GetType("Formulas").GetMethod(action.Id);
             bool critical = (UnityEngine.Random.Range(1, 100) <= 5);
-            int damage = Action.Mod2(caster.PA, critical, Element.None, caster, targetUnit, formula);
+            int damage = Action.Mod2(caster.PA, critical, Element.None, caster, targetUnit, System.Reflection.MethodBase.GetCurrentMethod().Name);
+
 
             targetUnit.TakeDamage(damage);
 

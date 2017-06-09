@@ -11,6 +11,14 @@ public enum Gender
     Monster
 }
 
+public enum EvadeType
+{
+    miss,
+    shield,
+    weapon,
+    accessory
+}
+
 public class CombatUnit : MonoBehaviour {
 
     public int Order;
@@ -169,8 +177,7 @@ public class CombatUnit : MonoBehaviour {
         return evade;
     }
 
-    // 0 = miss, 1 = shield, 2 = weapon
-    public int EvadeType(Side side)
+    public EvadeType EvadeMethod(Side side)
     {
         int totalEvade = 0;
         int pick = 0;
@@ -179,17 +186,21 @@ public class CombatUnit : MonoBehaviour {
             case Side.Front:
                 totalEvade = ClassEvade + ShieldEvade + AccessoryEvade + WeaponEvade();
                 pick = UnityEngine.Random.Range(1, totalEvade);
+                if (pick <= ClassEvade)
+                {
+                    return EvadeType.miss;
+                }
                 if (pick <= ClassEvade + AccessoryEvade)
                 {
-                    return 0;
+                    return EvadeType.accessory;
                 }
                 else if (pick <= ClassEvade + AccessoryEvade + ShieldEvade)
                 {
-                    return 1;
+                    return EvadeType.shield;
                 }
                 else if (pick <= ClassEvade + AccessoryEvade + ShieldEvade + WeaponEvade())
                 {
-                    return 2;
+                    return EvadeType.weapon;
                 }
                 break;
             case Side.Side:
@@ -197,20 +208,20 @@ public class CombatUnit : MonoBehaviour {
                 pick = UnityEngine.Random.Range(1, totalEvade);
                 if (pick <= AccessoryEvade)
                 {
-                    return 0;
+                    return EvadeType.accessory;
                 }
                 else if (pick <= AccessoryEvade + ShieldEvade)
                 {
-                    return 1;
+                    return EvadeType.shield;
                 }
                 else if (pick <= AccessoryEvade + ShieldEvade + WeaponEvade())
                 {
-                    return 2;
+                    return EvadeType.weapon;
                 }
                 break;
             case Side.Back:
                 // only accessory evade applies from behind, this one is easy
-                return 0;
+                return EvadeType.accessory;
         }
         throw new Exception("Side not handled.");
     }

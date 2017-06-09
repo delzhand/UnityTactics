@@ -60,7 +60,6 @@ public class Action {
         else
         {
             // Default pattern is a simple radius
-            Statics.RadiusTiles(caster.gameObject.GetComponent<TileOccupier>().GetOccupiedTile(), 2, false);
             Tile[] radius = Engine.TileManager.FindTilesByRadius(origin, RangeH, !CasterImmune);
             foreach (Tile t in radius)
             {
@@ -151,14 +150,23 @@ public class Action {
 
     public void Execute(CombatUnit caster, Tile targetTile, CombatUnit targetUnit)
     {
-        if (Id == "Attack")
-        {
-            Id += Engine.CombatManager.WeaponTable[caster.Weapon].Type;
-        }
         Type.GetType("Executor").GetMethod(Id).Invoke(null, new object[] { caster, targetTile, targetUnit });
     }
 
-    public static int Mod2(int xa, bool critical, Element element, CombatUnit caster, CombatUnit target, MethodInfo formula)
+    public static bool GetCritical()
+    {
+        return (UnityEngine.Random.Range(1, 100) <= 5);
+    }
+
+    public static bool HitSuccess(CombatUnit caster, CombatUnit target, int baseHit)
+    {
+        int hit = UnityEngine.Random.Range(1, 100);
+        Side side = CombatUnit.actionAngle(caster, target);
+        int hitTarget = target.EvadeRate(side, baseHit);
+        return hit > hitTarget;
+    }
+
+    public static int Mod2(int xa, bool critical, Element element, CombatUnit caster, CombatUnit target, string action)
     {
         // Critical
         if (critical)
@@ -187,7 +195,7 @@ public class Action {
         // Caster+Target Zodiac
         xa = ZodiacCompatibility.Modify(xa, caster, target);
 
-        int damage = (int)formula.Invoke(null, new object[] { xa, caster });
+        int damage = (int)Type.GetType("Formulas").GetMethod(action).Invoke(null, new object[] { xa, caster });
 
         // Target Elemental Weak
 
