@@ -9,8 +9,8 @@ using UnityEngine;
 public class Action {
     public string Id;
     public string CommandSet;
-    public string PSXName;
-    public string PSPName;
+    public string PSXName = "";
+    public string PSPName = "";
     public string SelectableRange;
     public int RangeH = 1;
     public int RangeV = -1;

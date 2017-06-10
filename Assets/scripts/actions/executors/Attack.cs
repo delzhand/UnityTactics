@@ -10,7 +10,7 @@ public partial class Executor
     {
         string action_id = System.Reflection.MethodBase.GetCurrentMethod().Name;
         Action action = Engine.CombatManager.ActionTable[action_id];
-        Timeline t = ActionPatterns.Start(action, true);
+        Timeline t = ActionPatterns.Start(action, false);
         ActionPatterns.UseWeapon(t, caster, targetTile);
 
         targetUnit = ActionPatterns.TargetUnit(targetTile);
