@@ -20,7 +20,7 @@ public partial class Executor
         List<Tile> affected = action.AffectedTiles(targetTile, exclude);
         foreach (Tile affectedTile in affected)
         {
-            targetUnit = ActionPatterns.TargetUnit(targetTile);
+            targetUnit = ActionPatterns.TargetUnit(affectedTile);
             if (targetUnit)
             {
                 bool critical = Action.GetCritical();
