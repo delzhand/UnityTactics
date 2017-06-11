@@ -11,14 +11,17 @@ public class Menu : MonoBehaviour {
     private string output;
     public int SelectedIndex;
 
-    public int Left = 10;
-    public int Top = 10;
+    public float Left = 0;
+    public float Top = 0;
+    public float Z = 0;
 
     private int width = 0;
 
     public GameObject Attach;
 
     public bool Visible = true;
+
+    public static int StackCount = 0;
 
     void OnGUI()
     {
@@ -38,14 +41,31 @@ public class Menu : MonoBehaviour {
         Engine.AssignControl(this);
         tag = "Menus";
         GenerateRenderObjects();
+        Menu.StackCount++;
     }
 
     // Update is called once per frame
     void Update() {
-        if (Engine.InputManager.Attach == this)
+        Transform cursor = transform.Find("Menu Container/Cursor").transform;
+
+        if (Visible)
         {
-            Transform cursor = transform.Find("Menu Container/Cursor").transform;
+            transform.Find("Menu Container").gameObject.SetActive(true);
+        }
+        else
+        {
+            transform.Find("Menu Container").gameObject.SetActive(false);
+        }
+
+        if (Engine.InputManager.Attach != this)
+        {
+            cursor.transform.Find("Finger").GetComponent<Bounce>().enabled = false;
+        }
+        else if (Engine.InputManager.Attach == this)
+        {
+            UpdateMenuPosition();
             cursor.localPosition = new Vector3(cursor.localPosition.x, -3 - (SelectedIndex * 5), cursor.localPosition.z);
+            cursor.transform.Find("Finger").GetComponent<Bounce>().enabled = true;
 
             int itemCount = GetComponents<MenuOption>().Length;
             if (Engine.InputManager.Down())
@@ -89,28 +109,44 @@ public class Menu : MonoBehaviour {
 
     public void GenerateRenderObjects()
     {
+        Z = 1 + Menu.StackCount;
         GameObject container = (GameObject)Instantiate(Resources.Load("prefabs/gui/MenuContainer"));
         container.name = "Menu Container";
         container.transform.parent = transform;
-        container.transform.localPosition = new Vector3(-6, -17, 5);
         container.transform.localEulerAngles = Vector3.zero;
         MenuOption[] options = GetComponents<MenuOption>();
+
+        Vector2 size = new Vector2(0, 0);
+
         for (int i = 0; i < options.Length; i++)
         {
             GameObject item = (GameObject)Instantiate(Resources.Load("prefabs/gui/MenuTextItem"));
             item.transform.parent = container.transform;
             MenuTextItem textItem = item.GetComponent<MenuTextItem>();
-            textItem.menuOption = options[i];
+            textItem.SetOption(options[i]);
             item.transform.localPosition = new Vector3(0, -5 * i, -.15f);
             item.transform.localEulerAngles = Vector3.zero;
             item.transform.localScale = Vector3.one;
+            size.y += 5;
+            size.x = Mathf.Max(size.x, textItem.transform.Find("Text").GetComponent<Renderer>().bounds.extents.x * 20);
         }
+        Vector2 padding = new Vector2(3, 3);
+        size += padding;
+        container.transform.Find("Background").transform.localScale = new Vector3(size.x, size.y, .15f);
+        container.transform.Find("Background").transform.localPosition = new Vector3((size.x - padding.x)/ 2, -(size.y - padding.y) / 2, 0);
         GameObject cursor = (GameObject)Instantiate(Resources.Load("prefabs/gui/MenuCursor"));
         cursor.transform.parent = container.transform;
         cursor.transform.localPosition = new Vector3(-5.5f, -3f, -1f);
         cursor.transform.localScale = new Vector3(1f, 1f, 1f);
         cursor.name = "Cursor";
         container.SetLayer(LayerMask.NameToLayer("UI"), true);
+    }
+
+    public void UpdateMenuPosition()
+    {
+        UIScale uiScale = GameObject.Find("UI Camera").GetComponent<UIScale>();
+        Vector3 uiCenter = uiScale.gameObject.transform.position;
+        transform.Find("Menu Container").transform.position = uiCenter + new Vector3((Left - .5f) * uiScale.xScale, (Top - .5f) * -uiScale.yScale, 10 - Z);
     }
 
     private void OnDestroy()
@@ -120,6 +156,7 @@ public class Menu : MonoBehaviour {
         {
             Destroy(options[i]);
         }
+        Menu.StackCount--;
     }
 
     private void updateWidth()

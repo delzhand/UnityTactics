@@ -19,8 +19,8 @@ public class Act_MenuOption : MenuOption {
         base.SelectOption();
         Menu m = new GameObject().AddComponent<Menu>();
         m.name = Menu.Attach.name + " Action";
-        m.Top = 30;
-        m.Left = 120;
+        m.Top = .4f;
+        m.Left = .2f;
         m.ReturnControlTo = Menu;
         m.Attach = Menu.Attach;
         Engine.InputManager.Attach = m;

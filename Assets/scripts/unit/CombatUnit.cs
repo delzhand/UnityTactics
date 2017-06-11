@@ -108,6 +108,8 @@ public class CombatUnit : MonoBehaviour {
         m.gameObject.tag = "Menus";
         m.name = gameObject.name + " Command";
         m.Attach = gameObject;
+        m.Top = .3f;
+        m.Left = .1f;
 
         ActiveTurn a = GetComponent<ActiveTurn>();
         if (a && !Guest && !Enemy)

@@ -21,8 +21,8 @@ public class CommandSet_MenuOption : MenuOption {
         m.Attach = Menu.Attach;
         m.name = Menu.Attach.name + " (" + CommandSet + ")";
         m.ReturnControlTo = Menu;
-        m.Top = 30;
-        m.Left = 230;
+        m.Top = .5f;
+        m.Left = .5f;
 
         string[] actions = Menu.Attach.GetComponent<AvailableActions>().Actions;
         foreach (string s in actions)

@@ -10,7 +10,7 @@ public class SettingsManager : MonoBehaviour {
     public static float SoundFXVolume = 1f;
 
     // Debug Settings
-    public static bool FreeAct = true;
+    public static bool FreeAct = false;
     public static bool FreeMove = false;
 
 	// Use this for initialization

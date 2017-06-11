@@ -13,20 +13,21 @@ public class MenuTextItem : MonoBehaviour {
     private TextMesh text;
     private TextMesh shadow;
 
-    private void Start()
-    {
-        text = transform.Find("Text").GetComponent<TextMesh>();
-        shadow = transform.Find("Text Shadow").GetComponent<TextMesh>();
-    }
-
     private void Update()
     {
         if (text && shadow)
         {
-            text.text = menuOption.text;
-            shadow.text = menuOption.text;
             text.GetComponent<Renderer>().material.color = menuOption.valid ? activeColor : inactiveColor;
             shadow.GetComponent<Renderer>().material.color = menuOption.valid ? activeShadow : inactiveShadow;
         }
+    }
+
+    public void SetOption(MenuOption option)
+    {
+        menuOption = option;
+        text = transform.Find("Text").GetComponent<TextMesh>();
+        text.text = option.text;
+        shadow = transform.Find("Text Shadow").GetComponent<TextMesh>();
+        shadow.text = option.text;
     }
 }

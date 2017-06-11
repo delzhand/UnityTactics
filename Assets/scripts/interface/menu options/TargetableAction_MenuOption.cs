@@ -77,8 +77,8 @@ public abstract class TargetableAction_MenuOption : MenuOption {
                     Engine.InputManager.Accept = false;
                     Menu m = new GameObject().AddComponent<Menu>();
                     m.Attach = Caster.gameObject;
-                    m.Top = 180;
-                    m.Left = Screen.width - 360;
+                    m.Top = .5f;
+                    m.Left = .7f;
                     m.name = "Confirm Effect";
                     m.ReturnControlTo = this;
                     Execute_MenuOption e = m.gameObject.AddComponent<Execute_MenuOption>();
