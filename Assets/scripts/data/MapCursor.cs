@@ -173,14 +173,14 @@ public class MapCursor : MonoBehaviour {
     {
         ShowHeight = true;
         GetComponent<MeshRenderer>().enabled = true;
-        transform.Find("Arrow").gameObject.SetActive(true);
+        transform.Find("UnitCursor").gameObject.SetActive(true);
     }
 
     public void Hide()
     {
         ShowHeight = false;
         GetComponent<MeshRenderer>().enabled = false;
-        transform.Find("Arrow").gameObject.SetActive(false);
+        transform.Find("UnitCursor").gameObject.SetActive(false);
     }
 
 }
