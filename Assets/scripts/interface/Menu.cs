@@ -130,7 +130,7 @@ public class Menu : MonoBehaviour {
             size.y += 5;
             size.x = Mathf.Max(size.x, textItem.transform.Find("Text").GetComponent<Renderer>().bounds.extents.x * 20);
         }
-        Vector2 padding = new Vector2(3, 3);
+        Vector2 padding = new Vector2(6, 6);
         size += padding;
         container.transform.Find("Background").transform.localScale = new Vector3(size.x, size.y, .15f);
         container.transform.Find("Background").transform.localPosition = new Vector3((size.x - padding.x)/ 2, -(size.y - padding.y) / 2, 0);
