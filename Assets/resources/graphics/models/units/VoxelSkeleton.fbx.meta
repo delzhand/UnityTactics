@@ -138,6 +138,7 @@ ModelImporter:
     7400014: Armature|SwordAttackBlocked
     7400016: Armature|Walk
     7400018: Armature|Walk
+    7400020: Armature|KO
     9500000: //RootNode
     13700000: Cube
     13700002: Cube.002
@@ -847,6 +848,80 @@ ModelImporter:
       - path: Armature.001/Trunk/Chest/Shoulder R/Forearm R/Held R/Held R_end
         weight: 1
       - path: GenericHead
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|KO
+      takeName: Armature.001|KO
+      firstFrame: 0
+      lastFrame: 5
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature.001
+        weight: 1
+      - path: Armature.001/Hips
+        weight: 1
+      - path: Armature.001/Hips/Top Leg L
+        weight: 1
+      - path: Armature.001/Hips/Top Leg L/Low Leg L
+        weight: 1
+      - path: Armature.001/Hips/Top Leg L/Low Leg L/Low Leg L_end
+        weight: 1
+      - path: Armature.001/Hips/Top Leg R
+        weight: 1
+      - path: Armature.001/Hips/Top Leg R/Low Leg R
+        weight: 1
+      - path: Armature.001/Hips/Top Leg R/Low Leg R/Low Leg R_end
+        weight: 1
+      - path: Armature.001/Root
+        weight: 1
+      - path: Armature.001/Root/Root_end
+        weight: 1
+      - path: Armature.001/Trunk
+        weight: 1
+      - path: Armature.001/Trunk/Chest
+        weight: 1
+      - path: Armature.001/Trunk/Chest/Head
+        weight: 1
+      - path: Armature.001/Trunk/Chest/Head/Head_end
+        weight: 1
+      - path: Armature.001/Trunk/Chest/Shoulder L
+        weight: 1
+      - path: Armature.001/Trunk/Chest/Shoulder L/Forearm L
+        weight: 1
+      - path: Armature.001/Trunk/Chest/Shoulder L/Forearm L/Held L
+        weight: 1
+      - path: Armature.001/Trunk/Chest/Shoulder L/Forearm L/Held L/Held L_end
+        weight: 1
+      - path: Armature.001/Trunk/Chest/Shoulder R
+        weight: 1
+      - path: Armature.001/Trunk/Chest/Shoulder R/Forearm R
+        weight: 1
+      - path: Armature.001/Trunk/Chest/Shoulder R/Forearm R/Held R
+        weight: 1
+      - path: Armature.001/Trunk/Chest/Shoulder R/Forearm R/Held R/Held R_end
         weight: 1
       maskType: 3
       maskSource: {instanceID: 0}

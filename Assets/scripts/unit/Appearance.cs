@@ -21,19 +21,19 @@ public class Appearance : MonoBehaviour {
 
     private void Update()
     {
-        float light = Mathf.Min(GameObject.Find("Stage/Directional Light").GetComponent<Light>().intensity + .2f, 1);
-        Head.GetComponent<Renderer>().material.color = new Color(light, light, light, 1);
-        Chest.GetComponent<Renderer>().material.color = new Color(light, light, light, 1);
-        Trunk.GetComponent<Renderer>().material.color = new Color(light, light, light, 1);
-        Hips.GetComponent<Renderer>().material.color = new Color(light, light, light, 1);
-        ArmUpperLeft.GetComponent<Renderer>().material.color = new Color(light, light, light, 1);
-        ArmUpperRight.GetComponent<Renderer>().material.color = new Color(light, light, light, 1);
-        ArmLowerRight.GetComponent<Renderer>().material.color = new Color(light, light, light, 1);
-        ArmLowerLeft.GetComponent<Renderer>().material.color = new Color(light, light, light, 1);
-        LegLowerLeft.GetComponent<Renderer>().material.color = new Color(light, light, light, 1);
-        LegLowerRight.GetComponent<Renderer>().material.color = new Color(light, light, light, 1);
-        LegUpperLeft.GetComponent<Renderer>().material.color = new Color(light, light, light, 1);
-        LegUpperRight.GetComponent<Renderer>().material.color = new Color(light, light, light, 1);
+        //float light = Mathf.Min(GameObject.Find("Stage/Directional Light").GetComponent<Light>().intensity + .2f, 1);
+        //Head.GetComponent<Renderer>().material.color = new Color(light, light, light, 1);
+        //Chest.GetComponent<Renderer>().material.color = new Color(light, light, light, 1);
+        //Trunk.GetComponent<Renderer>().material.color = new Color(light, light, light, 1);
+        //Hips.GetComponent<Renderer>().material.color = new Color(light, light, light, 1);
+        //ArmUpperLeft.GetComponent<Renderer>().material.color = new Color(light, light, light, 1);
+        //ArmUpperRight.GetComponent<Renderer>().material.color = new Color(light, light, light, 1);
+        //ArmLowerRight.GetComponent<Renderer>().material.color = new Color(light, light, light, 1);
+        //ArmLowerLeft.GetComponent<Renderer>().material.color = new Color(light, light, light, 1);
+        //LegLowerLeft.GetComponent<Renderer>().material.color = new Color(light, light, light, 1);
+        //LegLowerRight.GetComponent<Renderer>().material.color = new Color(light, light, light, 1);
+        //LegUpperLeft.GetComponent<Renderer>().material.color = new Color(light, light, light, 1);
+        //LegUpperRight.GetComponent<Renderer>().material.color = new Color(light, light, light, 1);
     }
 
     public void Configure()
